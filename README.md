@@ -15,7 +15,7 @@
   <strong>🎨 Digital Noir Design • 🚀 60fps Animations • 📱 Fully Responsive • ⚡ Lightning Fast</strong>
 </p>
 
-[**Live Demo**]([(https://portfolio-pitch-black-swiss.vercel.app/)) • [**Report Bug**](https://github.com/dev-sufyaan/pitch-black-portfolio/issues) • [**Request Feature**](https://github.com/dev-sufyaan/pitch-black-portfolio/issues)
+[**Live Demo**]((https://portfolio-pitch-black-swiss.vercel.app/)) • [**Report Bug**](https://github.com/dev-sufyaan/pitch-black-portfolio/issues) • [**Request Feature**](https://github.com/dev-sufyaan/pitch-black-portfolio/issues)
 
 </div>
 
