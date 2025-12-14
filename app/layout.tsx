@@ -4,6 +4,7 @@ import "./globals.css";
 import { NoiseOverlay } from "@/components/noise-overlay";
 import { CustomCursor } from "@/components/custom-cursor";
 import { LenisProvider } from "@/components/lenis-provider";
+import { NeonStreaks } from "@/components/ui/neon-streaks";
 
 // Harmond - Display font (fallback: Playfair Display)
 const harmond = Playfair_Display({
@@ -24,23 +25,23 @@ const nohemi = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Creative Developer | Digital Noir Portfolio",
+  title: "Garden State Entertainment | DJ & Event Services",
   description:
-    "Award-winning creative developer specializing in interactive digital experiences, high-end UI, and 3D web development.",
+    "Garden State Entertainment - Professional DJ and entertainment services for weddings, private parties, corporate events, and more. Entertainment you won't forget.",
   keywords: [
-    "Creative Developer",
-    "Web Developer",
-    "UI/UX",
-    "Three.js",
-    "React",
-    "Next.js",
-    "Portfolio",
+    "DJ Services",
+    "Wedding DJ",
+    "Event Entertainment",
+    "Party DJ",
+    "Corporate Events",
+    "Garden State Entertainment",
+    "New Jersey DJ",
   ],
-  authors: [{ name: "Creative Developer" }],
+  authors: [{ name: "Garden State Entertainment" }],
   openGraph: {
-    title: "Creative Developer | Digital Noir Portfolio",
+    title: "Garden State Entertainment | DJ & Event Services",
     description:
-      "Award-winning creative developer specializing in interactive digital experiences.",
+      "Professional DJ and entertainment services. Entertainment you won't forget.",
     type: "website",
   },
 };
@@ -66,6 +67,9 @@ export default function RootLayout({
         <LenisProvider>
           {/* Noise overlay - Film grain effect */}
           <NoiseOverlay />
+          
+          {/* Neon color streaks - Subtle ambient lighting */}
+          <NeonStreaks />
           
           {/* Custom cursor - Desktop only */}
           <CustomCursor />

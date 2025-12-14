@@ -1,19 +1,19 @@
 import { FloatingNav } from "@/components/ui/floating-navbar";
 import { HeroSection } from "@/components/sections/hero-section";
-import { AboutSection } from "@/components/sections/about-section";
-import { WorksSection } from "@/components/sections/works-section";
-import { ProcessSection } from "@/components/sections/process-section";
-import { SkillsSection } from "@/components/sections/skills-section";
+import { ServicesSection } from "@/components/sections/services-section";
+import { LineupSection } from "@/components/sections/lineup-section";
+import { TestimonialsSection } from "@/components/sections/testimonials-section";
+import { FAQSection } from "@/components/sections/faq-section";
 import { FooterSection } from "@/components/sections/footer-section";
 import { CurtainRevealLayout } from "@/components/curtain-reveal-layout";
 import { KineticMarquee } from "@/components/ui/kinetic-marquee";
 
 export default function Home() {
   const navItems = [
-    { name: "Work", link: "#work" },
-    { name: "About", link: "#about" },
-    { name: "Process", link: "#process" },
-    { name: "Skills", link: "#skills" },
+    { name: "Services", link: "#services" },
+    { name: "Lineup", link: "#lineup" },
+    { name: "Testimonials", link: "#testimonials" },
+    { name: "FAQ", link: "#faq" },
   ];
 
   return (
@@ -28,32 +28,32 @@ export default function Home() {
         {/* Kinetic Marquee - Breaking the grid */}
         <div className="relative -my-8 md:-my-12 z-0">
           <KineticMarquee 
-            text="CREATIVE DEVELOPER — BASED IN PARIS — DESIGN — CODE — "
+            text="DJ SERVICES — WEDDINGS — CORPORATE EVENTS — PRIVATE PARTIES — "
             baseVelocity={0.5}
             skewFactor={0.8}
           />
         </div>
 
-        {/* About Section - The Pitch */}
-        <AboutSection />
+        {/* Services Section */}
+        <ServicesSection />
 
-        {/* Selected Works - The Core */}
-        <WorksSection />
+        {/* Lineup Section - Meet the DJs */}
+        <LineupSection />
 
         {/* Kinetic Marquee - Second instance */}
         <div className="relative -my-8 md:-my-12 z-0">
           <KineticMarquee 
-            text="AVAILABLE FOR PROJECTS — LET'S COLLABORATE — "
+            text="ENTERTAINMENT YOU WON'T FORGET — BOOK YOUR EVENT TODAY — "
             baseVelocity={-0.4}
             skewFactor={0.6}
           />
         </div>
 
-        {/* Process Section - Timeline */}
-        <ProcessSection />
+        {/* Testimonials Section */}
+        <TestimonialsSection />
 
-        {/* Skills & Services - Bento Grid */}
-        <SkillsSection />
+        {/* FAQ Section */}
+        <FAQSection />
       </CurtainRevealLayout>
     </>
   );

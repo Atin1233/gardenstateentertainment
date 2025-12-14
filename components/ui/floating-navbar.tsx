@@ -99,7 +99,7 @@ export const FloatingNav = ({
           strength={0.3}
         >
           <span className="px-4 py-2 font-harmond text-lg font-bold tracking-tight text-white">
-            K.
+            GSE
           </span>
         </MagneticButton>
 
@@ -133,10 +133,10 @@ export const FloatingNav = ({
         >
           <span className={cn(
             "ml-2 px-5 py-2 rounded-full block",
-            "bg-white text-black font-nohemi text-sm font-semibold uppercase tracking-wide",
-            "hover:bg-white/90 transition-colors duration-200"
+            "bg-gradient-to-r from-neon-orange via-neon-pink to-neon-cyan text-black font-nohemi text-sm font-semibold uppercase tracking-wide",
+            "hover:opacity-90 transition-opacity duration-200"
           )}>
-            Let&apos;s Talk
+            Book Now
           </span>
         </MagneticButton>
       </div>

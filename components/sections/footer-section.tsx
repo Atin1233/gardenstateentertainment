@@ -3,8 +3,9 @@
 import React, { useEffect, useRef, useState, memo } from "react";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
-// Optimized dotted glow background - only draws when visible
+// Optimized dotted glow background with neon colors
 const DottedGlowBackground = memo(function DottedGlowBackground({ className }: { className?: string }) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -21,7 +22,7 @@ const DottedGlowBackground = memo(function DottedGlowBackground({ className }: {
     let stopped = false;
     let isVisible = false;
 
-    const gap = 16; // Increased gap for fewer dots
+    const gap = 16;
     const radius = 1;
     const opacity = 0.4;
 
@@ -35,7 +36,6 @@ const DottedGlowBackground = memo(function DottedGlowBackground({ className }: {
     ro.observe(container);
     resize();
 
-    // Intersection observer - only animate when visible
     const io = new IntersectionObserver(
       (entries) => {
         isVisible = entries[0]?.isIntersecting ?? false;
@@ -47,7 +47,9 @@ const DottedGlowBackground = memo(function DottedGlowBackground({ className }: {
     );
     io.observe(container);
 
-    let dots: { x: number; y: number; phase: number }[] = [];
+    let dots: { x: number; y: number; phase: number; color: string }[] = [];
+
+    const colors = ["#FFA500", "#FF1493", "#00BFFF"]; // Neon orange, pink, cyan
 
     const regenDots = () => {
       dots = [];
@@ -59,7 +61,8 @@ const DottedGlowBackground = memo(function DottedGlowBackground({ className }: {
           const x = i * gap;
           const y = j * gap;
           const phase = Math.random() * Math.PI * 2;
-          dots.push({ x, y, phase });
+          const color = colors[Math.floor(Math.random() * colors.length)];
+          dots.push({ x, y, phase, color });
         }
       }
     };
@@ -74,14 +77,14 @@ const DottedGlowBackground = memo(function DottedGlowBackground({ className }: {
       
       const { width, height } = container.getBoundingClientRect();
       ctx.clearRect(0, 0, width, height);
-      ctx.fillStyle = "#3b82f6";
 
-      const time = now / 2000; // Slower animation
+      const time = now / 2000;
       for (const d of dots) {
         const mod = (time + d.phase) % 2;
         const lin = mod < 1 ? mod : 2 - mod;
         const a = 0.1 + 0.5 * lin;
 
+        ctx.fillStyle = d.color;
         ctx.globalAlpha = a * opacity;
         ctx.beginPath();
         ctx.arc(d.x, d.y, radius, 0, Math.PI * 2);
@@ -113,12 +116,13 @@ const DottedGlowBackground = memo(function DottedGlowBackground({ className }: {
   );
 });
 
-// Simple CSS-based flipping email
-function FlippingEmail({ email }: { email: string }) {
+// Simple CSS-based flipping email/phone
+function FlippingContact({ label, value }: { label: string; value: string }) {
   const [isFlipped, setIsFlipped] = useState(false);
 
   return (
-    <div
+    <a
+      href={label.includes("Email") ? `mailto:${value}` : `tel:${value}`}
       className="relative inline-block cursor-pointer perspective-1000"
       onMouseEnter={() => setIsFlipped(true)}
       onMouseLeave={() => setIsFlipped(false)}
@@ -134,17 +138,17 @@ function FlippingEmail({ email }: { email: string }) {
         <div
           className="font-nohemi text-lg md:text-xl text-white/60 hover:text-white transition-colors backface-hidden"
         >
-          Email Me →
+          {label} →
         </div>
         {/* Back */}
         <div
-          className="absolute inset-0 font-nohemi text-lg md:text-xl text-white backface-hidden"
+          className="absolute inset-0 font-nohemi text-lg md:text-xl text-white backface-hidden whitespace-nowrap"
           style={{ transform: "rotateX(180deg)" }}
         >
-          {email}
+          {value}
         </div>
       </div>
-    </div>
+    </a>
   );
 }
 
@@ -154,73 +158,84 @@ export function FooterSection() {
       id="contact"
       className="relative w-full bg-black"
     >
-      {/* Dotted glow background */}
+      {/* Dotted glow background with neon colors */}
       <DottedGlowBackground className="pointer-events-none opacity-20 [mask-image:radial-gradient(ellipse_at_center,white_30%,transparent_80%)]" />
 
-      {/* Gradient glow from center */}
-      <div className="absolute inset-0 bg-gradient-radial from-accent-blue/10 via-transparent to-transparent pointer-events-none" />
+      {/* Gradient glow from center with neon colors */}
+      <div className="absolute inset-0 bg-gradient-radial from-neon-pink/10 via-transparent to-transparent pointer-events-none" />
 
       <div className="swiss-container relative z-10 py-20 md:py-32">
         <div className="flex flex-col items-center justify-center text-center w-full">
-          {/* Section label */}
-          <span className="font-nohemi text-xs font-medium uppercase tracking-[0.3em] text-white/40 mb-8">
-            Let&apos;s Connect
-          </span>
+          {/* Logo */}
+          <div className="mb-12">
+            <Image
+              src="/logo.JPG"
+              alt="Garden State Entertainment"
+              width={300}
+              height={300}
+              className="w-48 md:w-64 h-auto"
+            />
+          </div>
 
-          {/* Big CTA headline - Massive Harmond Typography */}
+          {/* Big CTA headline */}
           <h2 className="font-harmond text-[15vw] sm:text-[12vw] md:text-[10vw] lg:text-[12vw] font-bold tracking-tight text-white leading-[0.8] mb-8"
             style={{
-              textShadow: "0 0 100px rgba(59,130,246,0.3), 0 0 200px rgba(139,92,246,0.2)",
+              textShadow: "0 0 100px rgba(255,165,0,0.3), 0 0 200px rgba(255,20,147,0.2)",
             }}
           >
             LET&apos;S
             <br />
-            TALK
+            CREATE
           </h2>
 
           {/* Subtext */}
           <p className="font-nohemi text-lg md:text-xl text-white/50 max-w-lg mb-12">
-            Have a project in mind? Let&apos;s create something extraordinary
-            together.
+            Ready to make your event unforgettable? Get in touch and let&apos;s start planning.
           </p>
 
           {/* CTA Button with Magnetic Effect */}
           <MagneticButton
             as="a"
-            href="mailto:dev.sufyaan@gmail.com"
+            href="mailto:contact@gardenstate-entertainment.com"
             strength={0.4}
             className="group"
           >
             <span className={cn(
               "inline-flex items-center gap-3 px-8 py-4 rounded-full",
-              "bg-white text-black font-nohemi text-base font-semibold uppercase tracking-wide",
+              "bg-gradient-to-r from-neon-orange via-neon-pink to-neon-cyan text-black font-nohemi text-base font-semibold uppercase tracking-wide",
               "transition-all duration-300",
-              "group-hover:bg-accent-blue group-hover:text-white",
-              "group-hover:shadow-[0_0_40px_rgba(59,130,246,0.5)]"
+              "group-hover:opacity-90",
+              "group-hover:shadow-[0_0_40px_rgba(255,165,0,0.5)]"
             )}>
-              Start a Project
+              Book Your Event
               <svg className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
             </span>
           </MagneticButton>
 
-          {/* Email flip */}
-          <div className="mt-12">
-            <FlippingEmail email="dev.sufyaan@gmail.com" />
+          {/* Contact info flips */}
+          <div className="mt-12 flex flex-col md:flex-row items-center gap-6 md:gap-12">
+            <FlippingContact label="Email Us" value="contact@gardenstate-entertainment.com" />
+            <FlippingContact label="Call Us" value="(555) 123-4567" />
           </div>
 
           {/* Social links with magnetic effect */}
           <div className="mt-16 flex items-center gap-6 flex-wrap justify-center">
-            {["Twitter", "GitHub", "LinkedIn", "Dribbble"].map((social) => (
+            {[
+              { name: "Instagram", url: "#" },
+              { name: "Facebook", url: "#" },
+              { name: "TikTok", url: "#" },
+              { name: "YouTube", url: "#" },
+            ].map((social) => (
               <MagneticButton
-                key={social}
+                key={social.name}
                 as="a"
-                href="#"
+                href={social.url}
                 strength={0.5}
               >
                 <span className="font-nohemi text-xs uppercase tracking-widest text-white/40 hover:text-white transition-colors duration-200 px-2 py-1">
-                  {social}
+                  {social.name}
                 </span>
               </MagneticButton>
             ))}
@@ -233,10 +248,10 @@ export function FooterSection() {
         <div className="swiss-container">
           <div className="flex flex-col items-center justify-center gap-2 text-center">
             <p className="font-nohemi text-xs text-white/40">
-              © {new Date().getFullYear()} Sufyaan. All rights reserved.
+              © {new Date().getFullYear()} Garden State Entertainment. All rights reserved.
             </p>
             <p className="font-nohemi text-xs text-white/40">
-              GitHub: dev-sufyaan | Designed & Built with ♥ and lots of ☕
+              Entertainment You Won&apos;t Forget ✨
             </p>
           </div>
         </div>

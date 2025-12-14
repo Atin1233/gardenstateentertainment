@@ -14,6 +14,14 @@
   --color-accent-orange: #ff6b35;
   --color-silver: #c0c0c0;
   
+  /* Garden State Entertainment Neon Colors */
+  --neon-orange: #FFA500;
+  --neon-yellow: #FFD700;
+  --neon-pink: #FF1493;
+  --neon-magenta: #FF10F0;
+  --neon-cyan: #00BFFF;
+  --neon-blue: #00CFF0;
+  
   /* Cursor variables */
   --cursor-size: 12px;
   --cursor-size-hover: 48px;
@@ -181,6 +189,18 @@ html.lenis body {
 
 .glow-accent {
   box-shadow: 0 0 60px rgba(59, 130, 246, 0.3);
+}
+
+.glow-neon-orange {
+  box-shadow: 0 0 80px rgba(255, 165, 0, 0.4);
+}
+
+.glow-neon-pink {
+  box-shadow: 0 0 80px rgba(255, 20, 147, 0.4);
+}
+
+.glow-neon-cyan {
+  box-shadow: 0 0 80px rgba(0, 191, 255, 0.4);
 }
 
 /* ============================================
@@ -560,5 +580,67 @@ html.lenis body {
 
 .animate-noise {
   animation: noise 1s steps(2) infinite;
+}
+
+/* ============================================
+   Neon Streak Effects
+   ============================================ */
+
+/* Animated color streaks */
+@keyframes neon-streak-horizontal {
+  0% {
+    transform: translateX(-100%) scaleX(0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateX(100vw) scaleX(1);
+    opacity: 0;
+  }
+}
+
+@keyframes neon-streak-vertical {
+  0% {
+    transform: translateY(-100%) scaleY(0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(100vh) scaleY(1);
+    opacity: 0;
+  }
+}
+
+@keyframes neon-glow-pulse {
+  0%, 100% {
+    opacity: 0.2;
+    filter: blur(40px);
+  }
+  50% {
+    opacity: 0.4;
+    filter: blur(60px);
+  }
+}
+
+.neon-streak-orange {
+  animation: neon-streak-horizontal 8s ease-in-out infinite;
+}
+
+.neon-streak-pink {
+  animation: neon-streak-horizontal 10s ease-in-out infinite;
+  animation-delay: 2s;
+}
+
+.neon-streak-cyan {
+  animation: neon-streak-vertical 12s ease-in-out infinite;
+  animation-delay: 4s;
+}
+
+.neon-ambient-glow {
+  animation: neon-glow-pulse 6s ease-in-out infinite;
 }
 

@@ -1,143 +1,36 @@
 "use client";
 
-import React, { memo, useEffect, useState, useRef } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { FlipWords } from "@/components/ui/flip-words";
-
-// Noisy grid background with white lines
-const NoiseGridBackground = memo(function NoiseGridBackground() {
-  return (
-    <div className="absolute inset-0 overflow-hidden">
-      {/* Base grid pattern */}
-      <div className="absolute inset-0 hero-grid-pattern" />
-      
-      {/* Animated grid lines overlay */}
-      <div className="absolute inset-0">
-        <svg 
-          className="absolute inset-0 w-full h-full opacity-100"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <defs>
-            {/* Grid pattern */}
-            <pattern id="smallGrid" width="40" height="40" patternUnits="userSpaceOnUse">
-              <path 
-                d="M 40 0 L 0 0 0 40" 
-                fill="none" 
-                stroke="rgba(255,255,255,0.05)" 
-                strokeWidth="0.5"
-              />
-            </pattern>
-            <pattern id="largeGrid" width="200" height="200" patternUnits="userSpaceOnUse">
-              <rect width="200" height="200" fill="url(#smallGrid)"/>
-              <path 
-                d="M 200 0 L 0 0 0 200" 
-                fill="none" 
-                stroke="rgba(255,255,255,0.08)" 
-                strokeWidth="1"
-              />
-            </pattern>
-            
-            {/* Glow filter for accent lines */}
-            <filter id="gridGlow" x="-50%" y="-50%" width="200%" height="200%">
-              <feGaussianBlur stdDeviation="2" result="blur"/>
-              <feMerge>
-                <feMergeNode in="blur"/>
-                <feMergeNode in="SourceGraphic"/>
-              </feMerge>
-            </filter>
-          </defs>
-          
-          {/* Main grid */}
-          <rect width="100%" height="100%" fill="url(#largeGrid)" />
-          
-          {/* Accent horizontal lines with glow */}
-          <g filter="url(#gridGlow)" className="animate-grid-pulse">
-            <line x1="0" y1="25%" x2="100%" y2="25%" stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
-            <line x1="0" y1="50%" x2="100%" y2="50%" stroke="rgba(255,255,255,0.04)" strokeWidth="1" />
-            <line x1="0" y1="75%" x2="100%" y2="75%" stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
-          </g>
-          
-          {/* Accent vertical lines with glow */}
-          <g filter="url(#gridGlow)" className="animate-grid-pulse-delayed">
-            <line x1="25%" y1="0" x2="25%" y2="100%" stroke="rgba(255,255,255,0.05)" strokeWidth="1" />
-            <line x1="50%" y1="0" x2="50%" y2="100%" stroke="rgba(255,255,255,0.03)" strokeWidth="1" />
-            <line x1="75%" y1="0" x2="75%" y2="100%" stroke="rgba(255,255,255,0.05)" strokeWidth="1" />
-          </g>
-          
-          {/* Grid intersection highlights */}
-          <g className="animate-grid-intersect">
-            <circle cx="25%" cy="25%" r="3" fill="rgba(255,255,255,0.1)" />
-            <circle cx="75%" cy="25%" r="2" fill="rgba(255,255,255,0.08)" />
-            <circle cx="25%" cy="75%" r="2" fill="rgba(255,255,255,0.08)" />
-            <circle cx="75%" cy="75%" r="3" fill="rgba(255,255,255,0.1)" />
-            <circle cx="50%" cy="50%" r="4" fill="rgba(255,255,255,0.06)" />
-          </g>
-        </svg>
-      </div>
-      
-      {/* Noise texture overlay */}
-      <div 
-        className="absolute inset-0 opacity-[0.15] mix-blend-overlay pointer-events-none"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
-          backgroundRepeat: 'repeat',
-          backgroundSize: '128px 128px',
-        }}
-      />
-      
-      {/* Secondary film grain noise */}
-      <div 
-        className="absolute inset-0 opacity-[0.08] pointer-events-none animate-noise"
-        style={{
-          backgroundImage: 'url(https://assets.aceternity.com/noise.webp)',
-          backgroundRepeat: 'repeat',
-          backgroundSize: '200px 200px',
-        }}
-      />
-      
-      {/* Subtle gradient overlays for depth */}
-      <div 
-        className="absolute inset-0 opacity-40"
-        style={{
-          background: 'radial-gradient(ellipse 80% 50% at 50% 0%, rgba(255,255,255,0.03) 0%, transparent 50%)',
-        }}
-      />
-      
-      <div 
-        className="absolute inset-0 opacity-30"
-        style={{
-          background: 'radial-gradient(ellipse 60% 40% at 50% 100%, rgba(255,255,255,0.02) 0%, transparent 50%)',
-        }}
-      />
-    </div>
-  );
-});
+import { VideoBackground } from "@/components/ui/video-background";
+import Image from "next/image";
 
 // Animated corner brackets
 const CornerBrackets = memo(function CornerBrackets() {
   return (
     <>
-      {/* Top left bracket */}
+      {/* Top left bracket with neon glow */}
       <div className="absolute top-8 left-8 md:top-16 md:left-16 w-16 h-16 md:w-24 md:h-24">
-        <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-white/30 to-transparent" />
-        <div className="absolute top-0 left-0 w-[2px] h-full bg-gradient-to-b from-white/30 to-transparent" />
+        <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-neon-cyan/50 to-transparent" />
+        <div className="absolute top-0 left-0 w-[2px] h-full bg-gradient-to-b from-neon-cyan/50 to-transparent" />
       </div>
       
-      {/* Top right bracket */}
+      {/* Top right bracket with neon glow */}
       <div className="absolute top-8 right-8 md:top-16 md:right-16 w-16 h-16 md:w-24 md:h-24">
-        <div className="absolute top-0 right-0 w-full h-[2px] bg-gradient-to-l from-white/30 to-transparent" />
-        <div className="absolute top-0 right-0 w-[2px] h-full bg-gradient-to-b from-white/30 to-transparent" />
+        <div className="absolute top-0 right-0 w-full h-[2px] bg-gradient-to-l from-neon-pink/50 to-transparent" />
+        <div className="absolute top-0 right-0 w-[2px] h-full bg-gradient-to-b from-neon-pink/50 to-transparent" />
       </div>
       
-      {/* Bottom left bracket */}
+      {/* Bottom left bracket with neon glow */}
       <div className="absolute bottom-8 left-8 md:bottom-16 md:left-16 w-16 h-16 md:w-24 md:h-24">
-        <div className="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-white/30 to-transparent" />
-        <div className="absolute bottom-0 left-0 w-[2px] h-full bg-gradient-to-t from-white/30 to-transparent" />
+        <div className="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-neon-orange/50 to-transparent" />
+        <div className="absolute bottom-0 left-0 w-[2px] h-full bg-gradient-to-t from-neon-orange/50 to-transparent" />
       </div>
       
-      {/* Bottom right bracket */}
+      {/* Bottom right bracket with neon glow */}
       <div className="absolute bottom-8 right-8 md:bottom-16 md:right-16 w-16 h-16 md:w-24 md:h-24">
-        <div className="absolute bottom-0 right-0 w-full h-[2px] bg-gradient-to-l from-white/30 to-transparent" />
-        <div className="absolute bottom-0 right-0 w-[2px] h-full bg-gradient-to-t from-white/30 to-transparent" />
+        <div className="absolute bottom-0 right-0 w-full h-[2px] bg-gradient-to-l from-neon-cyan/50 to-transparent" />
+        <div className="absolute bottom-0 right-0 w-[2px] h-full bg-gradient-to-t from-neon-cyan/50 to-transparent" />
       </div>
     </>
   );
@@ -145,10 +38,10 @@ const CornerBrackets = memo(function CornerBrackets() {
 
 export function HeroSection() {
   const words = [
-    "Digital Experiences",
-    "Interactive Worlds", 
-    "High-End UI",
-    "Web Applications",
+    "Weddings",
+    "Private Parties", 
+    "Corporate Events",
+    "Sweet 16s",
   ];
 
   // Simple mount animation state
@@ -160,13 +53,17 @@ export function HeroSection() {
 
   return (
     <section className="relative min-h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-black">
-      {/* Noisy grid background */}
-      <NoiseGridBackground />
+      {/* Video Background */}
+      <VideoBackground 
+        videoSrc="/EAE66DEE-8DB3-4D46-93C4-02A1CFE42ED4.mp4"
+        overlayOpacity={0.65}
+        className="absolute inset-0"
+      />
       
-      {/* Corner brackets for Swiss design feel */}
+      {/* Corner brackets for design feel */}
       <CornerBrackets />
 
-      {/* Gradient overlays */}
+      {/* Additional gradient overlays for depth */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black pointer-events-none" />
       <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-black/20 pointer-events-none" />
       
@@ -178,7 +75,7 @@ export function HeroSection() {
         }}
       />
 
-      {/* Main content - using CSS transitions instead of Framer Motion where possible */}
+      {/* Main content */}
       <div className="relative z-10 swiss-container w-full">
         <div
           className="flex flex-col items-center justify-center text-center"
@@ -188,49 +85,102 @@ export function HeroSection() {
             transition: 'opacity 0.8s ease-out, transform 0.8s ease-out',
           }}
         >
-          {/* Subtitle */}
-          <p
-            className="font-nohemi text-sm md:text-base font-medium uppercase tracking-[0.3em] text-white/50 mb-6"
+          {/* Logo */}
+          <div
+            className="mb-8 md:mb-12"
             style={{
               opacity: mounted ? 1 : 0,
               transform: mounted ? 'translateY(0)' : 'translateY(20px)',
-              transition: 'opacity 0.6s ease-out 0.2s, transform 0.6s ease-out 0.2s',
+              transition: 'opacity 0.8s ease-out 0.2s, transform 0.8s ease-out 0.2s',
             }}
           >
-            Creative Developer
-          </p>
+            <Image
+              src="/logo.JPG"
+              alt="Garden State Entertainment"
+              width={400}
+              height={400}
+              className="w-64 md:w-96 h-auto"
+              priority
+            />
+          </div>
 
           {/* Main headline */}
           <h1
-            className="font-harmond text-6xl sm:text-7xl md:text-8xl lg:text-[10rem] xl:text-[12rem] font-bold tracking-tight leading-[0.85] text-white"
+            className="font-harmond text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold tracking-tight leading-[0.9] text-white mb-6"
             style={{
               opacity: mounted ? 1 : 0,
               transform: mounted ? 'translateY(0)' : 'translateY(30px)',
-              transition: 'opacity 0.8s ease-out 0.3s, transform 0.8s ease-out 0.3s',
-              textShadow: '0 0 80px rgba(255,255,255,0.1)',
+              transition: 'opacity 0.8s ease-out 0.4s, transform 0.8s ease-out 0.4s',
+              textShadow: '0 0 80px rgba(255,255,255,0.3), 0 0 40px rgba(255,165,0,0.2)',
             }}
           >
-            CRAFTING
+            ENTERTAINMENT
           </h1>
+
+          {/* Slogan */}
+          <p
+            className="font-nohemi text-xl md:text-2xl lg:text-3xl font-light text-white/90 mb-8"
+            style={{
+              opacity: mounted ? 1 : 0,
+              transform: mounted ? 'translateY(0)' : 'translateY(30px)',
+              transition: 'opacity 0.8s ease-out 0.6s, transform 0.8s ease-out 0.6s',
+              textShadow: '0 0 20px rgba(255,255,255,0.2)',
+            }}
+          >
+            You Won&apos;t Forget
+          </p>
 
           {/* Flip words line */}
           <div
-            className="flex flex-wrap items-center justify-center gap-2 mt-4 md:mt-6"
+            className="flex flex-wrap items-center justify-center gap-2 mt-4"
             style={{
               opacity: mounted ? 1 : 0,
               transform: mounted ? 'translateY(0)' : 'translateY(30px)',
-              transition: 'opacity 0.8s ease-out 0.5s, transform 0.8s ease-out 0.5s',
+              transition: 'opacity 0.8s ease-out 0.8s, transform 0.8s ease-out 0.8s',
             }}
           >
-            <span className="font-nohemi text-xl md:text-3xl lg:text-4xl text-white/70">
-              I build
+            <span className="font-nohemi text-lg md:text-xl lg:text-2xl text-white/80">
+              Unforgettable
             </span>
             <FlipWords
               words={words}
-              className="font-nohemi text-xl md:text-3xl lg:text-4xl font-semibold"
+              className="font-nohemi text-lg md:text-xl lg:text-2xl font-semibold bg-gradient-to-r from-neon-orange via-neon-pink to-neon-cyan bg-clip-text text-transparent"
               duration={3000}
             />
           </div>
+
+          {/* CTA Button */}
+          <div
+            className="mt-12"
+            style={{
+              opacity: mounted ? 1 : 0,
+              transform: mounted ? 'translateY(0)' : 'translateY(30px)',
+              transition: 'opacity 0.8s ease-out 1s, transform 0.8s ease-out 1s',
+            }}
+          >
+            <a
+              href="#contact"
+              className="group relative px-8 py-4 font-nohemi text-sm md:text-base font-semibold uppercase tracking-wider text-white bg-white/10 backdrop-blur-sm border border-white/20 rounded-full hover:bg-white/20 transition-all duration-300 inline-block"
+              data-cursor-hover
+            >
+              <span className="relative z-10">Book Your Event</span>
+              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-neon-orange/20 via-neon-pink/20 to-neon-cyan/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl" />
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* Scroll indicator */}
+      <div 
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
+        style={{
+          opacity: mounted ? 1 : 0,
+          transition: 'opacity 1s ease-out 1.2s',
+        }}
+      >
+        <div className="flex flex-col items-center gap-2 text-white/50">
+          <span className="font-nohemi text-xs uppercase tracking-widest">Scroll</span>
+          <div className="w-px h-12 bg-gradient-to-b from-white/50 to-transparent scroll-indicator" />
         </div>
       </div>
 
@@ -239,4 +189,3 @@ export function HeroSection() {
     </section>
   );
 }
-

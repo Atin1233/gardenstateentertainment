@@ -23,11 +23,23 @@ module.exports = {
           800: '#2e2e2e',
           900: '#333333',
         },
-        // Accent colors
+        // Accent colors - Garden State Entertainment neon theme
         accent: {
-          orange: '#FF6B35',
-          blue: '#3B82F6',
+          orange: '#FFA500',
+          yellow: '#FFD700',
+          pink: '#FF1493',
+          magenta: '#FF10F0',
+          cyan: '#00BFFF',
+          blue: '#00CFF0',
           silver: '#C0C0C0',
+        },
+        neon: {
+          orange: '#FFA500',
+          yellow: '#FFD700',
+          pink: '#FF1493',
+          magenta: '#FF10F0',
+          cyan: '#00BFFF',
+          blue: '#00CFF0',
         },
       },
       fontFamily: {
