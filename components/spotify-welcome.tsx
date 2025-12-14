@@ -22,7 +22,7 @@ export function SpotifyWelcome({ onStart }: SpotifyWelcomeProps) {
     <div
       className={cn(
         "fixed inset-0 z-[10000] flex items-center justify-center overflow-hidden",
-        "bg-gradient-to-br from-red-900 via-red-800 to-red-950"
+        "bg-[#0a0a0a]"
       )}
       style={{
         transform: isAnimating ? "scale(1.5)" : "scale(1)",
@@ -31,6 +31,49 @@ export function SpotifyWelcome({ onStart }: SpotifyWelcomeProps) {
         transition: "all 1.2s cubic-bezier(0.76, 0, 0.24, 1)",
       }}
     >
+      {/* Brand color accent overlays */}
+      <div className="fixed inset-0 pointer-events-none">
+        {/* Orange accent - top left */}
+        <div 
+          className="absolute top-0 left-0 w-[500px] h-[500px] opacity-[0.08]"
+          style={{
+            background: "radial-gradient(circle at center, #CC8400 0%, transparent 70%)",
+          }}
+        />
+        
+        {/* Pink accent - top right */}
+        <div 
+          className="absolute top-0 right-0 w-[400px] h-[400px] opacity-[0.06]"
+          style={{
+            background: "radial-gradient(circle at center, #CC1075 0%, transparent 70%)",
+          }}
+        />
+        
+        {/* Cyan accent - bottom left */}
+        <div 
+          className="absolute bottom-0 left-0 w-[450px] h-[450px] opacity-[0.07]"
+          style={{
+            background: "radial-gradient(circle at center, #0099CC 0%, transparent 70%)",
+          }}
+        />
+        
+        {/* Orange accent - bottom right */}
+        <div 
+          className="absolute bottom-0 right-0 w-[350px] h-[350px] opacity-[0.05]"
+          style={{
+            background: "radial-gradient(circle at center, #CC8400 0%, transparent 70%)",
+          }}
+        />
+        
+        {/* Center glow */}
+        <div 
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] opacity-[0.04]"
+          style={{
+            background: "radial-gradient(circle at center, #CC1075 0%, transparent 60%)",
+          }}
+        />
+      </div>
+
       {/* Radial warp overlay */}
       {isAnimating && (
         <div
@@ -153,7 +196,7 @@ export function SpotifyWelcome({ onStart }: SpotifyWelcomeProps) {
             className="group relative w-16 h-16 md:w-20 md:h-20 bg-white rounded-full flex items-center justify-center hover:scale-105 transition-transform shadow-lg"
             aria-label="Play"
           >
-            <svg className="w-8 h-8 md:w-10 md:h-10 text-red-900 ml-1" fill="currentColor" viewBox="0 0 24 24">
+            <svg className="w-8 h-8 md:w-10 md:h-10 text-[#0a0a0a] ml-1" fill="currentColor" viewBox="0 0 24 24">
               <path d="M8 5v14l11-7z" />
             </svg>
           </button>
@@ -194,8 +237,20 @@ export function SpotifyWelcome({ onStart }: SpotifyWelcomeProps) {
 
         {/* Lyrics Button */}
         <div className="absolute bottom-6 left-6 right-6 flex items-center justify-between">
-          <button className="bg-red-600 text-white font-nohemi text-sm md:text-base font-semibold px-6 py-3 rounded-lg hover:bg-red-700 transition-colors">
-            Lyrics
+          <button 
+            className="text-white font-nohemi text-sm md:text-base font-semibold px-6 py-3 rounded-lg transition-colors relative overflow-hidden group"
+            style={{
+              background: "linear-gradient(135deg, rgba(204,132,0,0.2) 0%, rgba(204,16,117,0.2) 100%)",
+              border: "1px solid rgba(255,255,255,0.1)",
+            }}
+          >
+            <span className="relative z-10">Lyrics</span>
+            <div 
+              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity"
+              style={{
+                background: "linear-gradient(135deg, rgba(204,132,0,0.3) 0%, rgba(204,16,117,0.3) 100%)",
+              }}
+            />
           </button>
           
           <div className="flex gap-4">
