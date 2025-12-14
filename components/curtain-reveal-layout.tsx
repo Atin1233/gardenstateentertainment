@@ -40,17 +40,17 @@ export function CurtainRevealLayout({ children, footer }: CurtainRevealLayoutPro
   }, []);
 
   return (
-    <div className="relative">
+    <div className="relative w-full overflow-x-hidden">
       {/* Main content that scrolls over the footer */}
       <div
         ref={mainRef}
-        className="relative z-10 bg-black"
+        className="relative z-10 bg-black w-full"
       >
         {children}
       </div>
 
       {/* Footer - simply placed after main content, no curtain effect */}
-      <div ref={footerWrapperRef}>
+      <div ref={footerWrapperRef} className="w-full">
         {footer}
       </div>
     </div>

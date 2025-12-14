@@ -63,7 +63,7 @@ export default function RootLayout({
       className={`${displayFont.variable} ${bodyFont.variable} dark`}
       suppressHydrationWarning
     >
-      <body className="bg-black text-white font-nohemi antialiased overflow-x-hidden">
+      <body className="bg-black text-white font-nohemi antialiased overflow-x-hidden min-h-screen w-full max-w-[100vw]">
         <LenisProvider>
           {/* Noise overlay - Film grain effect */}
           <NoiseOverlay />
@@ -75,7 +75,7 @@ export default function RootLayout({
           <CustomCursor />
           
           {/* Main content */}
-          <main>{children}</main>
+          <main className="w-full overflow-x-hidden">{children}</main>
         </LenisProvider>
       </body>
     </html>
