@@ -648,34 +648,79 @@ html.lenis body {
    Spotify Welcome Transition Effects
    ============================================ */
 
-@keyframes radialWarp {
+@-webkit-keyframes radialWarp {
   0% {
+    -webkit-transform: scale(1);
     transform: scale(1);
     opacity: 0;
   }
   100% {
+    -webkit-transform: scale(2);
     transform: scale(2);
     opacity: 1;
   }
 }
 
-@keyframes glitchScan {
+@keyframes radialWarp {
   0% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: scale(2);
+    transform: scale(2);
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes glitchScan {
+  0% {
+    -webkit-transform: translateY(-100%) scaleY(1);
     transform: translateY(-100%) scaleY(1);
     opacity: 0.8;
   }
   100% {
+    -webkit-transform: translateY(100vh) scaleY(3);
     transform: translateY(100vh) scaleY(3);
+    opacity: 0;
+  }
+}
+
+@keyframes glitchScan {
+  0% {
+    -webkit-transform: translateY(-100%) scaleY(1);
+    transform: translateY(-100%) scaleY(1);
+    opacity: 0.8;
+  }
+  100% {
+    -webkit-transform: translateY(100vh) scaleY(3);
+    transform: translateY(100vh) scaleY(3);
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes glitchScanHorizontal {
+  0% {
+    -webkit-transform: translateX(-100%) scaleX(1);
+    transform: translateX(-100%) scaleX(1);
+    opacity: 0.6;
+  }
+  100% {
+    -webkit-transform: translateX(100vw) scaleX(2);
+    transform: translateX(100vw) scaleX(2);
     opacity: 0;
   }
 }
 
 @keyframes glitchScanHorizontal {
   0% {
+    -webkit-transform: translateX(-100%) scaleX(1);
     transform: translateX(-100%) scaleX(1);
     opacity: 0.6;
   }
   100% {
+    -webkit-transform: translateX(100vw) scaleX(2);
     transform: translateX(100vw) scaleX(2);
     opacity: 0;
   }

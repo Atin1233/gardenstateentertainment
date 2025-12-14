@@ -29,6 +29,9 @@ export function SpotifyWelcome({ onStart }: SpotifyWelcomeProps) {
         opacity: isAnimating ? 0 : 1,
         filter: isAnimating ? "blur(40px)" : "blur(0px)",
         transition: "all 1.2s cubic-bezier(0.76, 0, 0.24, 1)",
+        WebkitTransform: isAnimating ? "scale(1.5)" : "scale(1)",
+        WebkitFilter: isAnimating ? "blur(40px)" : "blur(0px)",
+        willChange: "transform, opacity, filter",
       }}
     >
       {/* Brand color accent overlays */}
@@ -80,7 +83,9 @@ export function SpotifyWelcome({ onStart }: SpotifyWelcomeProps) {
           className="fixed inset-0 z-[10001] pointer-events-none"
           style={{
             background: "radial-gradient(circle at center, transparent 0%, black 100%)",
+            WebkitAnimation: "radialWarp 1.2s cubic-bezier(0.76, 0, 0.24, 1) forwards",
             animation: "radialWarp 1.2s cubic-bezier(0.76, 0, 0.24, 1) forwards",
+            willChange: "transform, opacity",
           }}
         />
       )}
@@ -93,7 +98,9 @@ export function SpotifyWelcome({ onStart }: SpotifyWelcomeProps) {
             style={{
               background: "linear-gradient(0deg, transparent 0%, rgba(204,132,0,0.3) 50%, transparent 100%)",
               backgroundSize: "100% 4px",
+              WebkitAnimation: "glitchScan 0.3s linear infinite",
               animation: "glitchScan 0.3s linear infinite",
+              willChange: "transform",
             }}
           />
           <div
@@ -101,7 +108,9 @@ export function SpotifyWelcome({ onStart }: SpotifyWelcomeProps) {
             style={{
               background: "linear-gradient(90deg, transparent 0%, rgba(204,16,117,0.2) 50%, transparent 100%)",
               backgroundSize: "4px 100%",
+              WebkitAnimation: "glitchScanHorizontal 0.4s linear infinite",
               animation: "glitchScanHorizontal 0.4s linear infinite",
+              willChange: "transform",
             }}
           />
         </>
@@ -110,8 +119,12 @@ export function SpotifyWelcome({ onStart }: SpotifyWelcomeProps) {
       <div 
         className="relative w-full h-full max-w-2xl mx-auto flex flex-col items-center justify-center p-6 md:p-12"
         style={{
-          transform: isAnimating ? "scale(0.8) rotateX(20deg)" : "scale(1) rotateX(0deg)",
+          transform: isAnimating ? "scale(0.8)" : "scale(1)",
+          WebkitTransform: isAnimating ? "scale(0.8)" : "scale(1)",
           transition: "transform 1s cubic-bezier(0.76, 0, 0.24, 1)",
+          willChange: "transform",
+          perspective: "1000px",
+          WebkitPerspective: "1000px",
         }}
       >
         {/* Close button */}
