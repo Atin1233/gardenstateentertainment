@@ -29,8 +29,8 @@ export function HomeContent() {
   };
 
   const navItems = [
-    { name: "Services", link: "#services" },
     { name: "Lineup", link: "#lineup" },
+    { name: "Services", link: "#services" },
     { name: "Testimonials", link: "#testimonials" },
     { name: "FAQ", link: "#faq" },
   ];
@@ -55,11 +55,11 @@ export function HomeContent() {
           />
         </div>
 
-        {/* Services Section */}
-        <ServicesSection />
-
         {/* Lineup Section - Meet the DJs */}
         <LineupSection />
+
+        {/* Services Section */}
+        <ServicesSection />
 
         {/* Kinetic Marquee - Second instance */}
         <div className="relative -my-8 md:-my-12 z-0">
