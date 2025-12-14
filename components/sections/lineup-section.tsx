@@ -86,7 +86,7 @@ export function LineupSection() {
     {
       name: "Justin",
       role: "DJ",
-      imageSrc: "/IMG_5861.JPG",
+      imageSrc: "/justin.png",
       bio: "Bringing energy and excitement to every event with a diverse music selection that keeps the dance floor packed.",
     },
     {
