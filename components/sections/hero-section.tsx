@@ -56,7 +56,7 @@ export function HeroSection() {
       {/* Video Background */}
       <VideoBackground 
         videoSrc="/EAE66DEE-8DB3-4D46-93C4-02A1CFE42ED4.mp4"
-        overlayOpacity={0.45}
+        overlayOpacity={0.3}
         className="absolute inset-0"
       />
       
