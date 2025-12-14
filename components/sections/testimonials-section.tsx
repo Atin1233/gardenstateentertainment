@@ -84,27 +84,6 @@ export function TestimonialsSection() {
       rating: 5,
     },
     {
-      quote: "My Sweet 16 was a dream come true thanks to Garden State Entertainment! They played all my favorite songs and got everyone involved. The lighting effects were amazing too!",
-      author: "Emma Rodriguez",
-      role: "Birthday Girl",
-      event: "Sweet 16 Party",
-      rating: 5,
-    },
-    {
-      quote: "These guys know how to read a crowd! They seamlessly mixed different genres and kept the energy high throughout our entire anniversary party. Highly recommend!",
-      author: "David & Lisa Chen",
-      role: "Celebrating 25 Years",
-      event: "Anniversary Celebration",
-      rating: 5,
-    },
-    {
-      quote: "From planning to execution, everything was flawless. The DJs were professional, the equipment was top-notch, and they made our daughter's graduation party one for the books!",
-      author: "Robert Thompson",
-      role: "Proud Father",
-      event: "Graduation Party",
-      rating: 5,
-    },
-    {
       quote: "Garden State Entertainment brought incredible energy to our fundraiser. They understood our audience perfectly and helped us create an atmosphere that encouraged giving. Outstanding service!",
       author: "Amanda Williams",
       role: "Event Coordinator",
@@ -144,7 +123,7 @@ export function TestimonialsSection() {
         </div>
 
         {/* Testimonials grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {testimonials.map((testimonial, idx) => (
             <TestimonialCard key={idx} {...testimonial} />
           ))}
