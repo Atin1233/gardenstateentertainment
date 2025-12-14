@@ -85,32 +85,13 @@ export function HeroSection() {
             transition: 'opacity 0.8s ease-out, transform 0.8s ease-out',
           }}
         >
-          {/* Logo */}
-          <div
-            className="mb-8 md:mb-12"
-            style={{
-              opacity: mounted ? 1 : 0,
-              transform: mounted ? 'translateY(0)' : 'translateY(20px)',
-              transition: 'opacity 0.8s ease-out 0.2s, transform 0.8s ease-out 0.2s',
-            }}
-          >
-            <Image
-              src="/logo.JPG"
-              alt="Garden State Entertainment"
-              width={400}
-              height={400}
-              className="w-64 md:w-96 h-auto"
-              priority
-            />
-          </div>
-
           {/* Main headline */}
           <h1
             className="font-harmond text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold tracking-tight leading-[0.9] text-white mb-6"
             style={{
               opacity: mounted ? 1 : 0,
               transform: mounted ? 'translateY(0)' : 'translateY(30px)',
-              transition: 'opacity 0.8s ease-out 0.4s, transform 0.8s ease-out 0.4s',
+              transition: 'opacity 0.8s ease-out 0.2s, transform 0.8s ease-out 0.2s',
               textShadow: '0 0 80px rgba(255,255,255,0.3), 0 0 40px rgba(255,165,0,0.2)',
             }}
           >
@@ -123,7 +104,7 @@ export function HeroSection() {
             style={{
               opacity: mounted ? 1 : 0,
               transform: mounted ? 'translateY(0)' : 'translateY(30px)',
-              transition: 'opacity 0.8s ease-out 0.6s, transform 0.8s ease-out 0.6s',
+              transition: 'opacity 0.8s ease-out 0.4s, transform 0.8s ease-out 0.4s',
               textShadow: '0 0 20px rgba(255,255,255,0.2)',
             }}
           >
@@ -136,7 +117,7 @@ export function HeroSection() {
             style={{
               opacity: mounted ? 1 : 0,
               transform: mounted ? 'translateY(0)' : 'translateY(30px)',
-              transition: 'opacity 0.8s ease-out 0.8s, transform 0.8s ease-out 0.8s',
+              transition: 'opacity 0.8s ease-out 0.6s, transform 0.8s ease-out 0.6s',
             }}
           >
             <span className="font-nohemi text-lg md:text-xl lg:text-2xl text-white/80">
@@ -155,7 +136,7 @@ export function HeroSection() {
             style={{
               opacity: mounted ? 1 : 0,
               transform: mounted ? 'translateY(0)' : 'translateY(30px)',
-              transition: 'opacity 0.8s ease-out 1s, transform 0.8s ease-out 1s',
+              transition: 'opacity 0.8s ease-out 0.8s, transform 0.8s ease-out 0.8s',
             }}
           >
             <a
