@@ -174,7 +174,7 @@ export function FooterSection() {
           >
             LET&apos;S
             <br />
-            CREATE
+            PARTY
           </h2>
 
           {/* Subtext */}
