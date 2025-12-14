@@ -9,13 +9,11 @@ import Image from "next/image";
 const DJCard = memo(function DJCard({
   name,
   role,
-  specialty,
   imageSrc,
   bio,
 }: {
   name: string;
   role: string;
-  specialty: string;
   imageSrc: string;
   bio: string;
 }) {
@@ -74,10 +72,9 @@ const DJCard = memo(function DJCard({
               {role}
             </span>
           </div>
-          <h3 className="font-harmond text-3xl font-bold text-white mb-1">
+          <h3 className="font-harmond text-3xl font-bold text-white">
             {name}
           </h3>
-          <p className="font-nohemi text-sm text-white/60">{specialty}</p>
         </div>
       </div>
     </div>
@@ -87,16 +84,14 @@ const DJCard = memo(function DJCard({
 export function LineupSection() {
   const djLineup = [
     {
-      name: "DJ Atin",
-      role: "Lead DJ",
-      specialty: "Hip-Hop, Top 40, EDM",
+      name: "Justin",
+      role: "DJ",
       imageSrc: "/IMG_5861.JPG",
       bio: "Bringing energy and excitement to every event with a diverse music selection that keeps the dance floor packed.",
     },
     {
-      name: "DJ Partner",
-      role: "Co-DJ",
-      specialty: "Bollywood, Latin, Throwbacks",
+      name: "Christian",
+      role: "DJ",
       imageSrc: "/IMG_5862.JPG",
       bio: "Specializing in multicultural events and creating the perfect atmosphere for any celebration.",
     },
@@ -151,22 +146,24 @@ export function LineupSection() {
             </div>
 
             {/* Stats */}
-            <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8">
-              {[
-                { value: "500+", label: "Events Hosted" },
-                { value: "10+", label: "Years Experience" },
-                { value: "5★", label: "Average Rating" },
-                { value: "100%", label: "Client Satisfaction" },
-              ].map((stat) => (
-                <div key={stat.label} className="text-center">
-                  <div className="font-harmond text-4xl md:text-5xl font-bold bg-gradient-to-r from-neon-orange via-neon-pink to-neon-cyan bg-clip-text text-transparent">
-                    {stat.value}
+            <div className="mt-20 flex justify-center">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl w-full">
+                {[
+                  { value: "500+", label: "Events Hosted" },
+                  { value: "10+", label: "Years Experience" },
+                  { value: "5★", label: "Average Rating" },
+                  { value: "100%", label: "Client Satisfaction" },
+                ].map((stat) => (
+                  <div key={stat.label} className="text-center">
+                    <div className="font-harmond text-4xl md:text-5xl font-bold bg-gradient-to-r from-neon-orange via-neon-pink to-neon-cyan bg-clip-text text-transparent">
+                      {stat.value}
+                    </div>
+                    <div className="font-nohemi text-xs uppercase tracking-widest text-white/40 mt-2">
+                      {stat.label}
+                    </div>
                   </div>
-                  <div className="font-nohemi text-xs uppercase tracking-widest text-white/40 mt-2">
-                    {stat.label}
-                  </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
         </div>

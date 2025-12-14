@@ -3,63 +3,72 @@
 import React, { memo } from "react";
 import { EncryptedText } from "@/components/ui/encrypted-text";
 import { cn } from "@/lib/utils";
+import { GlowingEffect } from "@/components/ui/glowing-effect";
 
-// Service card component
-const ServiceCard = memo(function ServiceCard({
-  icon,
-  title,
-  description,
-  features,
-}: {
-  icon: string;
+interface ServiceCardProps {
+  area?: string;
   title: string;
   description: string;
   features: string[];
-}) {
+}
+
+// Service card with glowing border gradient effect
+const ServiceCard = memo(function ServiceCard({
+  area,
+  title,
+  description,
+  features,
+}: ServiceCardProps) {
   return (
-    <div
-      className={cn(
-        "group relative p-8 rounded-2xl border border-white/10 bg-white/5",
-        "hover:border-neon-cyan/30 hover:bg-white/10",
-        "transition-all duration-500"
-      )}
-      data-cursor-hover
-    >
-      {/* Neon glow on hover */}
-      <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-neon-orange/10 via-neon-pink/10 to-neon-cyan/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl" />
-      
-      <div className="relative z-10">
-        {/* Icon */}
-        <div className="text-5xl mb-6">{icon}</div>
+    <li className={cn("min-h-[14rem] list-none", area)}>
+      <div className="relative h-full rounded-2xl border border-white/10 p-2 md:rounded-3xl md:p-3 bg-black-50">
+        {/* Glowing border gradient effect */}
+        <GlowingEffect
+          spread={40}
+          glow={true}
+          disabled={false}
+          proximity={64}
+          inactiveZone={0.01}
+          borderWidth={2}
+        />
         
-        {/* Title */}
-        <h3 className="font-harmond text-2xl md:text-3xl font-bold text-white mb-4">
-          {title}
-        </h3>
-        
-        {/* Description */}
-        <p className="font-nohemi text-base text-white/70 leading-relaxed mb-6">
-          {description}
-        </p>
-        
-        {/* Features */}
-        <ul className="space-y-2">
-          {features.map((feature, idx) => (
-            <li key={idx} className="flex items-start gap-2 font-nohemi text-sm text-white/60">
-              <span className="text-neon-cyan mt-1">✓</span>
-              <span>{feature}</span>
-            </li>
-          ))}
-        </ul>
+        <div
+          className={cn(
+            "relative flex h-full flex-col justify-between gap-6 overflow-hidden rounded-xl p-6 md:p-8",
+            "bg-gradient-to-br from-white/[0.03] to-transparent"
+          )}
+        >
+          <div className="relative flex flex-1 flex-col justify-between gap-4">
+            {/* Content */}
+            <div className="space-y-3">
+              <h3 className="font-harmond text-xl md:text-2xl font-bold text-white">
+                {title}
+              </h3>
+              <p className="font-nohemi text-sm md:text-base text-white/50 mb-4">
+                {description}
+              </p>
+              
+              {/* Features */}
+              <ul className="space-y-2">
+                {features.map((feature, idx) => (
+                  <li key={idx} className="flex items-start gap-2 font-nohemi text-sm text-white/60">
+                    <span className="text-neon-cyan mt-1">✓</span>
+                    <span>{feature}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+    </li>
   );
 });
 
 export function ServicesSection() {
   const services = [
     {
-      icon: "💍",
+      area: "md:[grid-area:1/1/2/7] xl:[grid-area:1/1/2/5]",
       title: "Wedding DJ Services",
       description: "Make your special day unforgettable with our professional wedding DJ services tailored to your vision.",
       features: [
@@ -70,7 +79,7 @@ export function ServicesSection() {
       ],
     },
     {
-      icon: "🎉",
+      area: "md:[grid-area:1/7/2/13] xl:[grid-area:2/1/3/5]",
       title: "Private Parties",
       description: "From birthdays to anniversaries, we bring the energy and create memories that last a lifetime.",
       features: [
@@ -81,7 +90,7 @@ export function ServicesSection() {
       ],
     },
     {
-      icon: "💼",
+      area: "md:[grid-area:2/1/3/7] xl:[grid-area:1/5/3/8]",
       title: "Corporate Events",
       description: "Professional entertainment solutions for your business events, conferences, and company celebrations.",
       features: [
@@ -92,7 +101,7 @@ export function ServicesSection() {
       ],
     },
     {
-      icon: "🎵",
+      area: "md:[grid-area:2/7/3/13] xl:[grid-area:1/8/3/13]",
       title: "Full Production",
       description: "State-of-the-art equipment and lighting to elevate any event to the next level.",
       features: [
@@ -146,11 +155,17 @@ export function ServicesSection() {
             </div>
 
             {/* Services grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-              {services.map((service, idx) => (
-                <ServiceCard key={idx} {...service} />
+            <ul className="grid grid-cols-1 grid-rows-none gap-4 md:grid-cols-12 md:grid-rows-2 lg:gap-4">
+              {services.map((service) => (
+                <ServiceCard
+                  key={service.title}
+                  area={service.area}
+                  title={service.title}
+                  description={service.description}
+                  features={service.features}
+                />
               ))}
-            </div>
+            </ul>
 
             {/* CTA */}
             <div className="mt-16 text-center">

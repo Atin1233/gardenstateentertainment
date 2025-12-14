@@ -1,22 +1,22 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { NoiseOverlay } from "@/components/noise-overlay";
 import { CustomCursor } from "@/components/custom-cursor";
 import { LenisProvider } from "@/components/lenis-provider";
 import { NeonStreaks } from "@/components/ui/neon-streaks";
 
-// Harmond - Display font (fallback: Playfair Display)
-const harmond = Playfair_Display({
+// Display font - Space Grotesk (modern geometric sans-serif)
+const displayFont = Space_Grotesk({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800", "900"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-harmond",
   display: "swap",
   preload: true,
 });
 
-// Nohemi - Body font (fallback: Inter)
-const nohemi = Inter({
+// Body font - Inter (clean, modern sans-serif)
+const bodyFont = Inter({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
   variable: "--font-nohemi",
@@ -60,7 +60,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${harmond.variable} ${nohemi.variable} dark`}
+      className={`${displayFont.variable} ${bodyFont.variable} dark`}
       suppressHydrationWarning
     >
       <body className="bg-black text-white font-nohemi antialiased overflow-x-hidden">

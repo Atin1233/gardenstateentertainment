@@ -251,7 +251,7 @@ export function FooterSection() {
               © {new Date().getFullYear()} Garden State Entertainment. All rights reserved.
             </p>
             <p className="font-nohemi text-xs text-white/40">
-              Entertainment You Won&apos;t Forget ✨
+              Entertainment You Won&apos;t Forget
             </p>
           </div>
         </div>

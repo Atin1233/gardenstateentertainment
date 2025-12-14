@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import { cn } from "@/lib/utils";
 import { useLenis } from "@/components/lenis-provider";
 import { MagneticButton } from "@/components/ui/magnetic-button";
+import Image from "next/image";
 
 export const FloatingNav = ({
   navItems,
@@ -98,9 +99,15 @@ export const FloatingNav = ({
           onClick={(e) => scrollToSection(e, "#")}
           strength={0.3}
         >
-          <span className="px-4 py-2 font-harmond text-lg font-bold tracking-tight text-white">
-            GSE
-          </span>
+          <div className="px-2 py-1">
+            <Image
+              src="/logo.JPG"
+              alt="Garden State Entertainment"
+              width={80}
+              height={80}
+              className="w-12 h-12 object-contain"
+            />
+          </div>
         </MagneticButton>
 
         {/* Nav items with magnetic effect */}

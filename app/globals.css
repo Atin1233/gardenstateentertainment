@@ -14,13 +14,13 @@
   --color-accent-orange: #ff6b35;
   --color-silver: #c0c0c0;
   
-  /* Garden State Entertainment Neon Colors */
-  --neon-orange: #FFA500;
-  --neon-yellow: #FFD700;
-  --neon-pink: #FF1493;
-  --neon-magenta: #FF10F0;
-  --neon-cyan: #00BFFF;
-  --neon-blue: #00CFF0;
+  /* Garden State Entertainment Neon Colors (dimmed) */
+  --neon-orange: #CC8400;
+  --neon-yellow: #CCB000;
+  --neon-pink: #CC1075;
+  --neon-magenta: #CC0DC0;
+  --neon-cyan: #0099CC;
+  --neon-blue: #00A6C0;
   
   /* Cursor variables */
   --cursor-size: 12px;
