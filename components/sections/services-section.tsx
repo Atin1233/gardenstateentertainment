@@ -122,64 +122,51 @@ export function ServicesSection() {
       <div className="absolute inset-0 bg-grid-white opacity-[0.02]" />
 
       <div className="swiss-container relative z-10">
-        <div className="swiss-grid">
-          {/* Section label */}
-          <div className="col-span-4 md:col-span-2 lg:col-span-3 mb-12 md:mb-0">
-            <span className="font-nohemi text-xs font-medium uppercase tracking-[0.3em] text-white/40">
-              What We Do
-            </span>
-            <div className="mt-4 w-12 h-px bg-gradient-to-r from-neon-orange to-neon-pink" />
-          </div>
+        {/* Encrypted header */}
+        <h2 className="font-harmond text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-white mb-8 text-center">
+          <EncryptedText
+            text="Our Services"
+            encryptedClassName="text-white/30"
+            revealedClassName="text-white"
+            revealDelayMs={40}
+          />
+        </h2>
 
-          {/* Main content */}
-          <div className="col-span-4 md:col-span-6 lg:col-span-9">
-            {/* Encrypted header */}
-            <h2 className="font-harmond text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-white mb-8">
-              <EncryptedText
-                text="Our Services"
-                encryptedClassName="text-white/30"
-                revealedClassName="text-white"
-                revealDelayMs={40}
-              />
-            </h2>
+        {/* Description */}
+        <div className="space-y-6 font-nohemi text-lg md:text-xl leading-relaxed text-white/60 max-w-3xl mb-16 mx-auto text-center">
+          <p>
+            Garden State Entertainment specializes in creating{" "}
+            <span className="text-white font-semibold">
+              unforgettable experiences
+            </span>{" "}
+            for every type of event. Our professional DJs and state-of-the-art equipment ensure your celebration is perfect from start to finish.
+          </p>
+        </div>
 
-            {/* Description */}
-            <div className="space-y-6 font-nohemi text-lg md:text-xl leading-relaxed text-white/60 max-w-3xl mb-16">
-              <p>
-                Garden State Entertainment specializes in creating{" "}
-                <span className="text-white font-semibold">
-                  unforgettable experiences
-                </span>{" "}
-                for every type of event. Our professional DJs and state-of-the-art equipment ensure your celebration is perfect from start to finish.
-              </p>
-            </div>
+        {/* Services grid */}
+        <ul className="grid grid-cols-1 grid-rows-none gap-4 md:grid-cols-12 md:grid-rows-2 lg:gap-4">
+          {services.map((service) => (
+            <ServiceCard
+              key={service.title}
+              area={service.area}
+              title={service.title}
+              description={service.description}
+              features={service.features}
+            />
+          ))}
+        </ul>
 
-            {/* Services grid */}
-            <ul className="grid grid-cols-1 grid-rows-none gap-4 md:grid-cols-12 md:grid-rows-2 lg:gap-4">
-              {services.map((service) => (
-                <ServiceCard
-                  key={service.title}
-                  area={service.area}
-                  title={service.title}
-                  description={service.description}
-                  features={service.features}
-                />
-              ))}
-            </ul>
-
-            {/* CTA */}
-            <div className="mt-16 text-center">
-              <a
-                href="#contact"
-                className="group relative inline-flex items-center gap-3 px-8 py-4 font-nohemi text-base font-semibold uppercase tracking-wider text-white bg-white/10 backdrop-blur-sm border border-white/20 rounded-full hover:bg-white/20 transition-all duration-300"
-                data-cursor-hover
-              >
-                <span className="relative z-10">Get a Free Quote</span>
-                <span className="relative z-10 text-xl">→</span>
-                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-neon-orange/20 via-neon-pink/20 to-neon-cyan/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl" />
-              </a>
-            </div>
-          </div>
+        {/* CTA */}
+        <div className="mt-16 text-center">
+          <a
+            href="#contact"
+            className="group relative inline-flex items-center gap-3 px-8 py-4 font-nohemi text-base font-semibold uppercase tracking-wider text-white bg-white/10 backdrop-blur-sm border border-white/20 rounded-full hover:bg-white/20 transition-all duration-300"
+            data-cursor-hover
+          >
+            <span className="relative z-10">Get a Free Quote</span>
+            <span className="relative z-10 text-xl">→</span>
+            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-neon-orange/20 via-neon-pink/20 to-neon-cyan/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl" />
+          </a>
         </div>
       </div>
     </section>

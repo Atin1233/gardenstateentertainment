@@ -108,69 +108,56 @@ export function FAQSection() {
       <div className="absolute inset-0 bg-grid-white opacity-[0.02]" />
 
       <div className="swiss-container relative z-10">
-        <div className="swiss-grid">
-          {/* Section label */}
-          <div className="col-span-4 md:col-span-2 lg:col-span-3 mb-12 md:mb-0">
-            <span className="font-nohemi text-xs font-medium uppercase tracking-[0.3em] text-white/40">
-              Questions
+        {/* Encrypted header */}
+        <h2 className="font-harmond text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-white mb-8 text-center">
+          <EncryptedText
+            text="Booking FAQ"
+            encryptedClassName="text-white/30"
+            revealedClassName="text-white"
+            revealDelayMs={40}
+          />
+        </h2>
+
+        {/* Description */}
+        <div className="space-y-6 font-nohemi text-lg md:text-xl leading-relaxed text-white/60 max-w-3xl mb-16 mx-auto text-center">
+          <p>
+            Got questions? We&apos;ve got answers. Here are the most common questions we receive about our{" "}
+            <span className="text-white font-semibold">
+              DJ and entertainment services
             </span>
-            <div className="mt-4 w-12 h-px bg-gradient-to-r from-neon-cyan to-neon-orange" />
-          </div>
+            .
+          </p>
+        </div>
 
-          {/* Main content */}
-          <div className="col-span-4 md:col-span-6 lg:col-span-9">
-            {/* Encrypted header */}
-            <h2 className="font-harmond text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-white mb-8">
-              <EncryptedText
-                text="Booking FAQ"
-                encryptedClassName="text-white/30"
-                revealedClassName="text-white"
-                revealDelayMs={40}
-              />
-            </h2>
+        {/* FAQ Items */}
+        <div className="space-y-4 max-w-4xl mx-auto">
+          {faqs.map((faq, idx) => (
+            <FAQItem
+              key={idx}
+              question={faq.question}
+              answer={faq.answer}
+              isOpen={openIndex === idx}
+              onToggle={() => setOpenIndex(openIndex === idx ? null : idx)}
+            />
+          ))}
+        </div>
 
-            {/* Description */}
-            <div className="space-y-6 font-nohemi text-lg md:text-xl leading-relaxed text-white/60 max-w-3xl mb-16">
-              <p>
-                Got questions? We&apos;ve got answers. Here are the most common questions we receive about our{" "}
-                <span className="text-white font-semibold">
-                  DJ and entertainment services
-                </span>
-                .
-              </p>
-            </div>
-
-            {/* FAQ Items */}
-            <div className="space-y-4">
-              {faqs.map((faq, idx) => (
-                <FAQItem
-                  key={idx}
-                  question={faq.question}
-                  answer={faq.answer}
-                  isOpen={openIndex === idx}
-                  onToggle={() => setOpenIndex(openIndex === idx ? null : idx)}
-                />
-              ))}
-            </div>
-
-            {/* Contact CTA */}
-            <div className="mt-16 p-8 md:p-12 rounded-2xl border border-white/10 bg-white/5 text-center">
-              <h3 className="font-harmond text-3xl md:text-4xl font-bold text-white mb-4">
-                Still Have Questions?
-              </h3>
-              <p className="font-nohemi text-lg text-white/70 mb-8 max-w-2xl mx-auto">
-                We&apos;re here to help! Get in touch with us and we&apos;ll answer any questions you have about your upcoming event.
-              </p>
-              <a
-                href="#contact"
-                className="group relative inline-flex items-center gap-3 px-8 py-4 font-nohemi text-base font-semibold uppercase tracking-wider text-black bg-gradient-to-r from-neon-orange via-neon-pink to-neon-cyan rounded-full hover:opacity-90 transition-all duration-300"
-                data-cursor-hover
-              >
-                <span className="relative z-10">Contact Us</span>
-                <span className="relative z-10 text-xl">→</span>
-              </a>
-            </div>
-          </div>
+        {/* Contact CTA */}
+        <div className="mt-16 p-8 md:p-12 rounded-2xl border border-white/10 bg-white/5 text-center max-w-4xl mx-auto">
+          <h3 className="font-harmond text-3xl md:text-4xl font-bold text-white mb-4">
+            Still Have Questions?
+          </h3>
+          <p className="font-nohemi text-lg text-white/70 mb-8 max-w-2xl mx-auto">
+            We&apos;re here to help! Get in touch with us and we&apos;ll answer any questions you have about your upcoming event.
+          </p>
+          <a
+            href="#contact"
+            className="group relative inline-flex items-center gap-3 px-8 py-4 font-nohemi text-base font-semibold uppercase tracking-wider text-black bg-gradient-to-r from-neon-orange via-neon-pink to-neon-cyan rounded-full hover:opacity-90 transition-all duration-300"
+            data-cursor-hover
+          >
+            <span className="relative z-10">Contact Us</span>
+            <span className="relative z-10 text-xl">→</span>
+          </a>
         </div>
       </div>
     </section>

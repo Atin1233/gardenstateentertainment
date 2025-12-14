@@ -166,17 +166,6 @@ export function FooterSection() {
 
       <div className="swiss-container relative z-10 py-20 md:py-32">
         <div className="flex flex-col items-center justify-center text-center w-full">
-          {/* Logo */}
-          <div className="mb-12">
-            <Image
-              src="/logo.JPG"
-              alt="Garden State Entertainment"
-              width={300}
-              height={300}
-              className="w-48 md:w-64 h-auto"
-            />
-          </div>
-
           {/* Big CTA headline */}
           <h2 className="font-harmond text-[15vw] sm:text-[12vw] md:text-[10vw] lg:text-[12vw] font-bold tracking-tight text-white leading-[0.8] mb-8"
             style={{

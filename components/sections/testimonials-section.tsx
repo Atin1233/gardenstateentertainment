@@ -122,61 +122,48 @@ export function TestimonialsSection() {
       <div className="absolute inset-0 bg-grid-white opacity-[0.02]" />
 
       <div className="swiss-container relative z-10">
-        <div className="swiss-grid">
-          {/* Section label */}
-          <div className="col-span-4 md:col-span-2 lg:col-span-3 mb-12 md:mb-0">
-            <span className="font-nohemi text-xs font-medium uppercase tracking-[0.3em] text-white/40">
-              Client Love
-            </span>
-            <div className="mt-4 w-12 h-px bg-gradient-to-r from-neon-pink to-neon-cyan" />
-          </div>
+        {/* Encrypted header */}
+        <h2 className="font-harmond text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-white mb-8 text-center">
+          <EncryptedText
+            text="What Clients Say"
+            encryptedClassName="text-white/30"
+            revealedClassName="text-white"
+            revealDelayMs={40}
+          />
+        </h2>
 
-          {/* Main content */}
-          <div className="col-span-4 md:col-span-6 lg:col-span-9">
-            {/* Encrypted header */}
-            <h2 className="font-harmond text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-white mb-8">
-              <EncryptedText
-                text="What Clients Say"
-                encryptedClassName="text-white/30"
-                revealedClassName="text-white"
-                revealDelayMs={40}
-              />
-            </h2>
+        {/* Description */}
+        <div className="space-y-6 font-nohemi text-lg md:text-xl leading-relaxed text-white/60 max-w-3xl mb-16 mx-auto text-center">
+          <p>
+            Don&apos;t just take our word for it. Here&apos;s what our clients have to say about their{" "}
+            <span className="text-white font-semibold">
+              unforgettable experiences
+            </span>{" "}
+            with Garden State Entertainment.
+          </p>
+        </div>
 
-            {/* Description */}
-            <div className="space-y-6 font-nohemi text-lg md:text-xl leading-relaxed text-white/60 max-w-3xl mb-16">
-              <p>
-                Don&apos;t just take our word for it. Here&apos;s what our clients have to say about their{" "}
-                <span className="text-white font-semibold">
-                  unforgettable experiences
-                </span>{" "}
-                with Garden State Entertainment.
-              </p>
-            </div>
+        {/* Testimonials grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+          {testimonials.map((testimonial, idx) => (
+            <TestimonialCard key={idx} {...testimonial} />
+          ))}
+        </div>
 
-            {/* Testimonials grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-              {testimonials.map((testimonial, idx) => (
-                <TestimonialCard key={idx} {...testimonial} />
-              ))}
-            </div>
-
-            {/* CTA */}
-            <div className="mt-16 text-center">
-              <p className="font-nohemi text-white/60 mb-6">
-                Ready to create your own unforgettable event?
-              </p>
-              <a
-                href="#contact"
-                className="group relative inline-flex items-center gap-3 px-8 py-4 font-nohemi text-base font-semibold uppercase tracking-wider text-white bg-white/10 backdrop-blur-sm border border-white/20 rounded-full hover:bg-white/20 transition-all duration-300"
-                data-cursor-hover
-              >
-                <span className="relative z-10">Book Your Date</span>
-                <span className="relative z-10 text-xl">→</span>
-                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-neon-orange/20 via-neon-pink/20 to-neon-cyan/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl" />
-              </a>
-            </div>
-          </div>
+        {/* CTA */}
+        <div className="mt-16 text-center">
+          <p className="font-nohemi text-white/60 mb-6">
+            Ready to create your own unforgettable event?
+          </p>
+          <a
+            href="#contact"
+            className="group relative inline-flex items-center gap-3 px-8 py-4 font-nohemi text-base font-semibold uppercase tracking-wider text-white bg-white/10 backdrop-blur-sm border border-white/20 rounded-full hover:bg-white/20 transition-all duration-300"
+            data-cursor-hover
+          >
+            <span className="relative z-10">Book Your Date</span>
+            <span className="relative z-10 text-xl">→</span>
+            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-neon-orange/20 via-neon-pink/20 to-neon-cyan/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl" />
+          </a>
         </div>
       </div>
     </section>

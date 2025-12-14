@@ -106,65 +106,52 @@ export function LineupSection() {
       <div className="absolute inset-0 bg-grid-white opacity-[0.02]" />
 
       <div className="swiss-container relative z-10">
-        <div className="swiss-grid">
-          {/* Section label */}
-          <div className="col-span-4 md:col-span-2 lg:col-span-3 mb-12 md:mb-0">
-            <span className="font-nohemi text-xs font-medium uppercase tracking-[0.3em] text-white/40">
-              The Team
+        {/* Encrypted header */}
+        <h2 className="font-harmond text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-white mb-8 text-center">
+          <EncryptedText
+            text="Meet Your DJs"
+            encryptedClassName="text-white/30"
+            revealedClassName="text-white"
+            revealDelayMs={40}
+          />
+        </h2>
+
+        {/* Description */}
+        <div className="space-y-6 font-nohemi text-lg md:text-xl leading-relaxed text-white/60 max-w-3xl mb-16 mx-auto text-center">
+          <p>
+            Our talented team of DJs brings years of experience and passion to every event. With diverse music knowledge and professional skills, we ensure your celebration is{" "}
+            <span className="text-white font-semibold">
+              entertainment you won&apos;t forget
             </span>
-            <div className="mt-4 w-12 h-px bg-gradient-to-r from-neon-cyan to-neon-pink" />
-          </div>
+            .
+          </p>
+        </div>
 
-          {/* Main content */}
-          <div className="col-span-4 md:col-span-6 lg:col-span-9">
-            {/* Encrypted header */}
-            <h2 className="font-harmond text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-white mb-8">
-              <EncryptedText
-                text="Meet Your DJs"
-                encryptedClassName="text-white/30"
-                revealedClassName="text-white"
-                revealDelayMs={40}
-              />
-            </h2>
+        {/* DJ Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 max-w-5xl mx-auto">
+          {djLineup.map((dj, idx) => (
+            <DJCard key={idx} {...dj} />
+          ))}
+        </div>
 
-            {/* Description */}
-            <div className="space-y-6 font-nohemi text-lg md:text-xl leading-relaxed text-white/60 max-w-3xl mb-16">
-              <p>
-                Our talented team of DJs brings years of experience and passion to every event. With diverse music knowledge and professional skills, we ensure your celebration is{" "}
-                <span className="text-white font-semibold">
-                  entertainment you won&apos;t forget
-                </span>
-                .
-              </p>
-            </div>
-
-            {/* DJ Cards Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-              {djLineup.map((dj, idx) => (
-                <DJCard key={idx} {...dj} />
-              ))}
-            </div>
-
-            {/* Stats */}
-            <div className="mt-20 flex justify-center">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl w-full">
-                {[
-                  { value: "500+", label: "Events Hosted" },
-                  { value: "10+", label: "Years Experience" },
-                  { value: "5★", label: "Average Rating" },
-                  { value: "100%", label: "Client Satisfaction" },
-                ].map((stat) => (
-                  <div key={stat.label} className="text-center">
-                    <div className="font-harmond text-4xl md:text-5xl font-bold bg-gradient-to-r from-neon-orange via-neon-pink to-neon-cyan bg-clip-text text-transparent">
-                      {stat.value}
-                    </div>
-                    <div className="font-nohemi text-xs uppercase tracking-widest text-white/40 mt-2">
-                      {stat.label}
-                    </div>
-                  </div>
-                ))}
+        {/* Stats */}
+        <div className="mt-20 flex justify-center">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl w-full">
+            {[
+              { value: "500+", label: "Events Hosted" },
+              { value: "10+", label: "Years Experience" },
+              { value: "5★", label: "Average Rating" },
+              { value: "100%", label: "Client Satisfaction" },
+            ].map((stat) => (
+              <div key={stat.label} className="text-center">
+                <div className="font-harmond text-4xl md:text-5xl font-bold bg-gradient-to-r from-neon-orange via-neon-pink to-neon-cyan bg-clip-text text-transparent">
+                  {stat.value}
+                </div>
+                <div className="font-nohemi text-xs uppercase tracking-widest text-white/40 mt-2">
+                  {stat.label}
+                </div>
               </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>
