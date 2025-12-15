@@ -77,26 +77,26 @@ export const KineticMarquee = memo(function KineticMarquee({
     <div
       ref={containerRef}
       className={cn(
-        "w-full overflow-hidden pointer-events-none select-none",
+        "w-full overflow-hidden pointer-events-none select-none py-4 md:py-6",
         className
       )}
     >
       <div
         ref={innerRef}
-        className="flex whitespace-nowrap"
+        className="flex whitespace-nowrap items-center"
         style={{
           transform: `translateX(${translateX}px) skewX(${skew}deg)`,
           willChange: "transform",
         }}
       >
-        <span className="font-harmond text-[8vw] md:text-[6vw] lg:text-[5vw] font-bold tracking-tight text-transparent uppercase"
+        <span className="font-harmond text-[6vw] sm:text-[5vw] md:text-[4vw] lg:text-[3.5vw] font-bold tracking-tight text-transparent uppercase leading-none"
           style={{
             WebkitTextStroke: "1.5px rgba(255,255,255,0.35)",
           }}
         >
           {repeatedText}
         </span>
-        <span className="font-harmond text-[8vw] md:text-[6vw] lg:text-[5vw] font-bold tracking-tight text-transparent uppercase"
+        <span className="font-harmond text-[6vw] sm:text-[5vw] md:text-[4vw] lg:text-[3.5vw] font-bold tracking-tight text-transparent uppercase leading-none"
           style={{
             WebkitTextStroke: "1.5px rgba(255,255,255,0.35)",
           }}

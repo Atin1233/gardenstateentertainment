@@ -47,7 +47,7 @@ export function HomeContent() {
         <HeroSection />
 
         {/* Kinetic Marquee - Breaking the grid */}
-        <div className="relative -my-8 md:-my-12 z-0">
+        <div className="relative z-0 my-4 md:my-0 md:-my-8">
           <KineticMarquee 
             text="DJ SERVICES — WEDDINGS — CORPORATE EVENTS — PRIVATE PARTIES — "
             baseVelocity={0.5}
@@ -62,7 +62,7 @@ export function HomeContent() {
         <ServicesSection />
 
         {/* Kinetic Marquee - Second instance */}
-        <div className="relative -my-8 md:-my-12 z-0">
+        <div className="relative z-0 my-4 md:my-0 md:-my-8">
           <KineticMarquee 
             text="ENTERTAINMENT YOU WON'T FORGET — BOOK YOUR EVENT TODAY — "
             baseVelocity={-0.4}
