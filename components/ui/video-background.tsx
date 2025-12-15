@@ -19,11 +19,35 @@ export function VideoBackground({
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    // Ensure video plays on mount
+    // Ensure video plays on mount and handle mobile autoplay
     if (videoRef.current) {
-      videoRef.current.play().catch((error) => {
-        console.log("Video autoplay failed:", error);
-      });
+      const video = videoRef.current;
+      
+      // Set additional properties for mobile
+      video.setAttribute('playsinline', 'true');
+      video.setAttribute('webkit-playsinline', 'true');
+      video.setAttribute('x-webkit-airplay', 'deny');
+      
+      // Force play with a slight delay for mobile browsers
+      const playVideo = () => {
+        video.play().catch((error) => {
+          console.log("Video autoplay failed:", error);
+          // Retry after user interaction
+          const playOnInteraction = () => {
+            video.play().catch(console.error);
+            document.removeEventListener('touchstart', playOnInteraction);
+            document.removeEventListener('click', playOnInteraction);
+          };
+          document.addEventListener('touchstart', playOnInteraction, { once: true });
+          document.addEventListener('click', playOnInteraction, { once: true });
+        });
+      };
+      
+      // Try to play immediately
+      playVideo();
+      
+      // Also try after a short delay
+      setTimeout(playVideo, 100);
     }
   }, []);
 
@@ -36,10 +60,16 @@ export function VideoBackground({
         loop
         muted
         playsInline
+        preload="auto"
+        disablePictureInPicture
+        disableRemotePlayback
+        controls={false}
         className="absolute inset-0 w-full h-full object-cover"
         style={{
           objectPosition: "center",
+          pointerEvents: "none",
         }}
+        onContextMenu={(e) => e.preventDefault()}
       >
         <source src={videoSrc} type="video/mp4" />
         Your browser does not support the video tag.
