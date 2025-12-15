@@ -735,44 +735,99 @@ html.lenis body {
    Video Background - Hide Controls
    ============================================ */
 
+/* Hide all webkit video controls */
 video::-webkit-media-controls {
   display: none !important;
+  -webkit-appearance: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
 }
 
 video::-webkit-media-controls-enclosure {
   display: none !important;
+  -webkit-appearance: none !important;
 }
 
 video::-webkit-media-controls-panel {
   display: none !important;
+  -webkit-appearance: none !important;
 }
 
 video::-webkit-media-controls-play-button {
   display: none !important;
+  -webkit-appearance: none !important;
 }
 
 video::-webkit-media-controls-start-playback-button {
   display: none !important;
+  -webkit-appearance: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
 }
 
 video::-webkit-media-controls-timeline {
   display: none !important;
+  -webkit-appearance: none !important;
 }
 
 video::-webkit-media-controls-current-time-display {
   display: none !important;
+  -webkit-appearance: none !important;
 }
 
 video::-webkit-media-controls-time-remaining-display {
   display: none !important;
+  -webkit-appearance: none !important;
 }
 
+/* Hide mozilla controls */
 video::-moz-media-controls {
   display: none !important;
 }
 
-video::--webkit-media-controls-overlay-play-button {
+/* Hide overlay play button specifically */
+video::-webkit-media-controls-overlay-play-button {
   display: none !important;
+  -webkit-appearance: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* Additional video controls hiding for iOS Safari */
+video::-webkit-media-controls-overlay-enclosure {
+  display: none !important;
+}
+
+video::-webkit-media-controls-fullscreen-button {
+  display: none !important;
+}
+
+video::-webkit-media-controls-volume-slider {
+  display: none !important;
+}
+
+video::-webkit-media-controls-mute-button {
+  display: none !important;
+}
+
+video::-webkit-media-controls-toggle-closed-captions-button {
+  display: none !important;
+}
+
+/* Force hide for background videos */
+video[autoplay][muted][loop] {
+  pointer-events: none !important;
+}
+
+video[autoplay][muted][loop]::-webkit-media-controls {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+video[autoplay][muted][loop]::-webkit-media-controls-start-playback-button {
+  display: none !important;
+  visibility: hidden !important;
 }
 
 

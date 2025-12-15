@@ -64,31 +64,40 @@ export function VideoBackground({
         disablePictureInPicture
         disableRemotePlayback
         controls={false}
-        className="absolute inset-0 w-full h-full object-cover"
+        className="absolute inset-0 w-full h-full object-cover [&::-webkit-media-controls]:!hidden [&::-webkit-media-controls-enclosure]:!hidden [&::-webkit-media-controls-panel]:!hidden [&::-webkit-media-controls-start-playback-button]:!hidden"
         style={{
           objectPosition: "center",
           pointerEvents: "none",
         }}
         onContextMenu={(e) => e.preventDefault()}
+        onClick={(e) => e.preventDefault()}
+        onTouchStart={(e) => e.preventDefault()}
       >
         <source src={videoSrc} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
 
+      {/* Transparent overlay to block all interactions with video */}
+      <div 
+        className="absolute inset-0 z-[1] pointer-events-auto cursor-default"
+        onClick={(e) => e.stopPropagation()}
+        onTouchStart={(e) => e.stopPropagation()}
+      />
+
       {/* Dimming overlay */}
       <div
-        className="absolute inset-0 bg-black pointer-events-none"
+        className="absolute inset-0 bg-black pointer-events-none z-[2]"
         style={{
           opacity: overlayOpacity,
         }}
       />
 
       {/* Optional gradient overlays for better text readability */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-transparent to-black/70 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-transparent to-black/70 pointer-events-none z-[3]" />
       
       {/* Content layer */}
       {children && (
-        <div className="relative z-10 w-full h-full">
+        <div className="relative z-10 w-full h-full pointer-events-auto">
           {children}
         </div>
       )}
