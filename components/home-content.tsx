@@ -29,7 +29,7 @@ export function HomeContent() {
   };
 
   const navItems = [
-    { name: "Lineup", link: "#lineup" },
+    { name: "DJs", link: "#lineup" },
     { name: "Services", link: "#services" },
     { name: "Testimonials", link: "#testimonials" },
     { name: "FAQ", link: "#faq" },
