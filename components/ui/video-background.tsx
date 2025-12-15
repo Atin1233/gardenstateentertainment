@@ -23,31 +23,72 @@ export function VideoBackground({
     if (videoRef.current) {
       const video = videoRef.current;
       
+      // CRITICAL: Set muted before anything else (required for autoplay)
+      video.muted = true;
+      video.volume = 0;
+      
       // Set additional properties for mobile
       video.setAttribute('playsinline', 'true');
       video.setAttribute('webkit-playsinline', 'true');
       video.setAttribute('x-webkit-airplay', 'deny');
+      video.setAttribute('muted', 'true');
       
-      // Force play with a slight delay for mobile browsers
-      const playVideo = () => {
-        video.play().catch((error) => {
-          console.log("Video autoplay failed:", error);
-          // Retry after user interaction
+      // Force play function
+      const playVideo = async () => {
+        try {
+          // Ensure muted state
+          video.muted = true;
+          video.volume = 0;
+          
+          // Try to play
+          await video.play();
+          
+          // If successful, ensure it stays playing
+          if (video.paused) {
+            video.play().catch(() => {});
+          }
+        } catch (error) {
+          console.log("Video autoplay attempt:", error);
+          
+          // On mobile, try again after any user interaction
           const playOnInteraction = () => {
-            video.play().catch(console.error);
-            document.removeEventListener('touchstart', playOnInteraction);
-            document.removeEventListener('click', playOnInteraction);
+            video.muted = true;
+            video.volume = 0;
+            video.play().catch(() => {});
           };
-          document.addEventListener('touchstart', playOnInteraction, { once: true });
-          document.addEventListener('click', playOnInteraction, { once: true });
-        });
+          
+          // Listen for first interaction
+          const events = ['touchstart', 'touchend', 'click', 'scroll'];
+          events.forEach(eventType => {
+            document.addEventListener(eventType, playOnInteraction, { once: true, passive: true });
+          });
+        }
       };
       
-      // Try to play immediately
+      // Multiple play attempts with increasing delays
       playVideo();
+      setTimeout(playVideo, 50);
+      setTimeout(playVideo, 200);
+      setTimeout(playVideo, 500);
       
-      // Also try after a short delay
-      setTimeout(playVideo, 100);
+      // Also try when page becomes visible (handles tab switching)
+      const handleVisibilityChange = () => {
+        if (!document.hidden && video.paused) {
+          playVideo();
+        }
+      };
+      document.addEventListener('visibilitychange', handleVisibilityChange);
+      
+      // Try on window load
+      if (document.readyState === 'complete') {
+        setTimeout(playVideo, 100);
+      } else {
+        window.addEventListener('load', () => setTimeout(playVideo, 100), { once: true });
+      }
+      
+      return () => {
+        document.removeEventListener('visibilitychange', handleVisibilityChange);
+      };
     }
   }, []);
 
@@ -72,6 +113,22 @@ export function VideoBackground({
         onContextMenu={(e) => e.preventDefault()}
         onClick={(e) => e.preventDefault()}
         onTouchStart={(e) => e.preventDefault()}
+        onLoadedMetadata={(e) => {
+          // Force play when metadata loads
+          const video = e.currentTarget;
+          video.muted = true;
+          video.volume = 0;
+          video.play().catch(() => {});
+        }}
+        onCanPlay={(e) => {
+          // Force play when video can play
+          const video = e.currentTarget;
+          video.muted = true;
+          video.volume = 0;
+          if (video.paused) {
+            video.play().catch(() => {});
+          }
+        }}
       >
         <source src={videoSrc} type="video/mp4" />
         Your browser does not support the video tag.
