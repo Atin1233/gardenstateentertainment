@@ -242,6 +242,9 @@ export function FooterSection() {
             <p className="font-nohemi text-xs text-white/40">
               Entertainment You Won&apos;t Forget
             </p>
+            <p className="font-nohemi text-xs text-white/30 mt-2">
+              &quot;Massive&quot; by Drake - Used with permission. All rights reserved by the copyright owner.
+            </p>
           </div>
         </div>
       </div>
