@@ -22,6 +22,10 @@ export function SpotifyWelcome({ onStart }: SpotifyWelcomeProps) {
     
     // Play audio when user hits unpause
     if (audioRef.current) {
+      console.log('Attempting to play audio...');
+      console.log('Audio src:', audioRef.current.src);
+      console.log('Audio readyState:', audioRef.current.readyState);
+      
       // Set volume and loop
       audioRef.current.volume = 0.7;
       audioRef.current.loop = true;
@@ -36,14 +40,25 @@ export function SpotifyWelcome({ onStart }: SpotifyWelcomeProps) {
           })
           .catch((error) => {
             console.error("Audio play failed:", error);
+            console.error("Error details:", {
+              name: error.name,
+              message: error.message
+            });
             // Try again after a short delay
             setTimeout(() => {
               if (audioRef.current) {
-                audioRef.current.play().catch(console.error);
+                console.log('Retrying audio play...');
+                audioRef.current.play().catch((retryError) => {
+                  console.error("Retry failed:", retryError);
+                });
               }
             }, 100);
           });
+      } else {
+        console.warn('Play promise is undefined');
       }
+    } else {
+      console.error('Audio ref is null');
     }
     
     // Use requestAnimationFrame to ensure state update triggers animation
@@ -75,8 +90,26 @@ export function SpotifyWelcome({ onStart }: SpotifyWelcomeProps) {
 
   // Initialize audio - using HTML audio element approach
   useEffect(() => {
-    // Audio will be handled by the HTML element in the JSX
-    // This effect just ensures the ref is ready
+    if (audioRef.current) {
+      // Add error listener to debug
+      audioRef.current.addEventListener('error', (e) => {
+        console.error('Audio error:', e);
+        console.error('Audio error details:', {
+          error: audioRef.current?.error,
+          networkState: audioRef.current?.networkState,
+          readyState: audioRef.current?.readyState,
+          src: audioRef.current?.src
+        });
+      });
+      
+      audioRef.current.addEventListener('loadeddata', () => {
+        console.log('Audio loaded successfully');
+      });
+      
+      audioRef.current.addEventListener('canplay', () => {
+        console.log('Audio can play');
+      });
+    }
   }, []);
 
   return (
