@@ -31,6 +31,7 @@ export function SpotifyWelcome({ onStart }: SpotifyWelcomeProps) {
         transition: "all 1.2s cubic-bezier(0.76, 0, 0.24, 1)",
         WebkitTransform: isAnimating ? "scale(1.5)" : "scale(1)",
         WebkitFilter: isAnimating ? "blur(40px)" : "blur(0px)",
+        WebkitTransition: "all 1.2s cubic-bezier(0.76, 0, 0.24, 1)",
         willChange: "transform, opacity, filter",
         position: "fixed",
         top: 0,
@@ -39,6 +40,10 @@ export function SpotifyWelcome({ onStart }: SpotifyWelcomeProps) {
         bottom: 0,
         width: "100vw",
         height: "100vh",
+        backfaceVisibility: "hidden",
+        WebkitBackfaceVisibility: "hidden",
+        transformStyle: "preserve-3d",
+        WebkitTransformStyle: "preserve-3d",
       }}
     >
       {/* Brand color accent overlays */}
@@ -93,6 +98,10 @@ export function SpotifyWelcome({ onStart }: SpotifyWelcomeProps) {
             WebkitAnimation: "radialWarp 1.2s cubic-bezier(0.76, 0, 0.24, 1) forwards",
             animation: "radialWarp 1.2s cubic-bezier(0.76, 0, 0.24, 1) forwards",
             willChange: "transform, opacity",
+            backfaceVisibility: "hidden",
+            WebkitBackfaceVisibility: "hidden",
+            transform: "translateZ(0)",
+            WebkitTransform: "translateZ(0)",
           }}
         />
       )}
@@ -108,6 +117,10 @@ export function SpotifyWelcome({ onStart }: SpotifyWelcomeProps) {
               WebkitAnimation: "glitchScan 0.3s linear infinite",
               animation: "glitchScan 0.3s linear infinite",
               willChange: "transform",
+              backfaceVisibility: "hidden",
+              WebkitBackfaceVisibility: "hidden",
+              transform: "translateZ(0)",
+              WebkitTransform: "translateZ(0)",
             }}
           />
           <div
@@ -118,6 +131,10 @@ export function SpotifyWelcome({ onStart }: SpotifyWelcomeProps) {
               WebkitAnimation: "glitchScanHorizontal 0.4s linear infinite",
               animation: "glitchScanHorizontal 0.4s linear infinite",
               willChange: "transform",
+              backfaceVisibility: "hidden",
+              WebkitBackfaceVisibility: "hidden",
+              transform: "translateZ(0)",
+              WebkitTransform: "translateZ(0)",
             }}
           />
         </>
@@ -129,16 +146,23 @@ export function SpotifyWelcome({ onStart }: SpotifyWelcomeProps) {
           transform: isAnimating ? "scale(0.8)" : "scale(1)",
           WebkitTransform: isAnimating ? "scale(0.8)" : "scale(1)",
           transition: "transform 1s cubic-bezier(0.76, 0, 0.24, 1)",
+          WebkitTransition: "transform 1s cubic-bezier(0.76, 0, 0.24, 1)",
           willChange: "transform",
           perspective: "1000px",
           WebkitPerspective: "1000px",
+          backfaceVisibility: "hidden",
+          WebkitBackfaceVisibility: "hidden",
         }}
       >
         {/* Close button */}
         <button
           onClick={handleStart}
-          className="absolute top-6 left-6 text-white/60 hover:text-white transition-colors"
+          onTouchStart={handleStart}
+          className="absolute top-6 left-6 text-white/60 hover:text-white active:text-white transition-colors touch-manipulation"
           aria-label="Close"
+          style={{
+            WebkitTapHighlightColor: 'transparent',
+          }}
         >
           <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -213,8 +237,12 @@ export function SpotifyWelcome({ onStart }: SpotifyWelcomeProps) {
           {/* Play Button */}
           <button
             onClick={handleStart}
-            className="group relative w-16 h-16 md:w-20 md:h-20 bg-white rounded-full flex items-center justify-center hover:scale-105 transition-transform shadow-lg"
+            onTouchStart={handleStart}
+            className="group relative w-16 h-16 md:w-20 md:h-20 bg-white rounded-full flex items-center justify-center hover:scale-105 active:scale-95 transition-transform shadow-lg touch-manipulation"
             aria-label="Play"
+            style={{
+              WebkitTapHighlightColor: 'transparent',
+            }}
           >
             <svg className="w-8 h-8 md:w-10 md:h-10 text-[#0a0a0a] ml-1" fill="currentColor" viewBox="0 0 24 24">
               <path d="M8 5v14l11-7z" />
