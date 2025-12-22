@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
@@ -11,11 +11,34 @@ interface SpotifyWelcomeProps {
 export function SpotifyWelcome({ onStart }: SpotifyWelcomeProps) {
   const [isAnimating, setIsAnimating] = useState(false);
 
-  const handleStart = () => {
+  const handleStart = (e?: React.MouseEvent | React.TouchEvent) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    
+    if (isAnimating) return; // Prevent multiple triggers
+    
     setIsAnimating(true);
     setTimeout(() => {
       onStart();
     }, 1200);
+  };
+  
+  // Handle touch events separately to ensure they work
+  const handleTouchStart = (e: React.TouchEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    handleStart(e);
+  };
+  
+  // Also handle touch end as fallback
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (!isAnimating) {
+      handleStart(e);
+    }
   };
 
   return (
@@ -28,11 +51,11 @@ export function SpotifyWelcome({ onStart }: SpotifyWelcomeProps) {
         transform: isAnimating ? "scale(1.5)" : "scale(1)",
         opacity: isAnimating ? 0 : 1,
         filter: isAnimating ? "blur(40px)" : "blur(0px)",
-        transition: "all 1.2s cubic-bezier(0.76, 0, 0.24, 1)",
+        transition: isAnimating ? "all 1.2s cubic-bezier(0.76, 0, 0.24, 1)" : "none",
         WebkitTransform: isAnimating ? "scale(1.5)" : "scale(1)",
         WebkitFilter: isAnimating ? "blur(40px)" : "blur(0px)",
-        WebkitTransition: "all 1.2s cubic-bezier(0.76, 0, 0.24, 1)",
-        willChange: "transform, opacity, filter",
+        WebkitTransition: isAnimating ? "all 1.2s cubic-bezier(0.76, 0, 0.24, 1)" : "none",
+        willChange: isAnimating ? "transform, opacity, filter" : "auto",
         position: "fixed",
         top: 0,
         left: 0,
@@ -44,6 +67,7 @@ export function SpotifyWelcome({ onStart }: SpotifyWelcomeProps) {
         WebkitBackfaceVisibility: "hidden",
         transformStyle: "preserve-3d",
         WebkitTransformStyle: "preserve-3d",
+        pointerEvents: isAnimating ? "none" : "auto",
       }}
     >
       {/* Brand color accent overlays */}
@@ -157,11 +181,15 @@ export function SpotifyWelcome({ onStart }: SpotifyWelcomeProps) {
         {/* Close button */}
         <button
           onClick={handleStart}
-          onTouchStart={handleStart}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
           className="absolute top-6 left-6 text-white/60 hover:text-white active:text-white transition-colors touch-manipulation"
           aria-label="Close"
           style={{
             WebkitTapHighlightColor: 'transparent',
+            touchAction: 'manipulation',
+            userSelect: 'none',
+            WebkitUserSelect: 'none',
           }}
         >
           <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -237,11 +265,15 @@ export function SpotifyWelcome({ onStart }: SpotifyWelcomeProps) {
           {/* Play Button */}
           <button
             onClick={handleStart}
-            onTouchStart={handleStart}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
             className="group relative w-16 h-16 md:w-20 md:h-20 bg-white rounded-full flex items-center justify-center hover:scale-105 active:scale-95 transition-transform shadow-lg touch-manipulation"
             aria-label="Play"
             style={{
               WebkitTapHighlightColor: 'transparent',
+              touchAction: 'manipulation',
+              userSelect: 'none',
+              WebkitUserSelect: 'none',
             }}
           >
             <svg className="w-8 h-8 md:w-10 md:h-10 text-[#0a0a0a] ml-1" fill="currentColor" viewBox="0 0 24 24">
