@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
@@ -10,6 +10,7 @@ interface SpotifyWelcomeProps {
 
 export function SpotifyWelcome({ onStart }: SpotifyWelcomeProps) {
   const [isAnimating, setIsAnimating] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const handleStart = (e?: React.MouseEvent | React.TouchEvent) => {
     if (e) {
@@ -18,6 +19,21 @@ export function SpotifyWelcome({ onStart }: SpotifyWelcomeProps) {
     }
     
     if (isAnimating) return; // Prevent multiple triggers
+    
+    // Play audio when user hits unpause
+    if (audioRef.current) {
+      audioRef.current.play().catch((error) => {
+        console.log("Audio play failed:", error);
+        // Retry on user interaction if needed
+        const retryPlay = () => {
+          if (audioRef.current) {
+            audioRef.current.play().catch(console.error);
+          }
+        };
+        document.addEventListener('touchstart', retryPlay, { once: true });
+        document.addEventListener('click', retryPlay, { once: true });
+      });
+    }
     
     // Use requestAnimationFrame to ensure state update triggers animation
     requestAnimationFrame(() => {
@@ -45,6 +61,23 @@ export function SpotifyWelcome({ onStart }: SpotifyWelcomeProps) {
       handleStart(e);
     }
   };
+
+  // Initialize audio
+  useEffect(() => {
+    // Create audio element
+    const audio = new Audio('/massive_song.mp3');
+    audio.loop = true;
+    audio.volume = 0.7; // Set volume to 70%
+    audioRef.current = audio;
+
+    return () => {
+      // Cleanup on unmount
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
+    };
+  }, []);
 
   return (
     <div
