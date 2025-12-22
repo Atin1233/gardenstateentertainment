@@ -99,7 +99,7 @@ export function HomeContent() {
   // Function to start audio playback (called from SpotifyWelcome)
   const startAudio = () => {
     if (audioRef.current) {
-      audioRef.current.volume = 0.7;
+      audioRef.current.volume = 0.55; // 55% of user's system volume
       audioRef.current.loop = true;
       
       // Set start time to 10 seconds
