@@ -34,6 +34,28 @@ export function HomeContent() {
     };
   }, []);
 
+  // Set up audio element
+  useEffect(() => {
+    if (audioRef.current) {
+      // Ensure audio starts at 10 seconds when it's ready
+      const handleCanPlay = () => {
+        if (audioRef.current && audioRef.current.currentTime < 10) {
+          audioRef.current.currentTime = 10;
+        }
+      };
+      
+      audioRef.current.addEventListener('canplay', handleCanPlay);
+      audioRef.current.addEventListener('loadeddata', handleCanPlay);
+      
+      return () => {
+        if (audioRef.current) {
+          audioRef.current.removeEventListener('canplay', handleCanPlay);
+          audioRef.current.removeEventListener('loadeddata', handleCanPlay);
+        }
+      };
+    }
+  }, []);
+
   const handleStart = () => {
     setShowWelcome(false);
   };
@@ -44,17 +66,25 @@ export function HomeContent() {
       audioRef.current.volume = 0.7;
       audioRef.current.loop = true;
       
+      // Set start time to 10 seconds
+      audioRef.current.currentTime = 10;
+      
       const playPromise = audioRef.current.play();
       
       if (playPromise !== undefined) {
         playPromise
           .then(() => {
-            console.log('Audio playing successfully');
+            console.log('Audio playing successfully from 10 seconds');
+            // Ensure currentTime is set (in case it was reset)
+            if (audioRef.current) {
+              audioRef.current.currentTime = 10;
+            }
           })
           .catch((error) => {
             console.error("Audio play failed:", error);
             setTimeout(() => {
               if (audioRef.current) {
+                audioRef.current.currentTime = 10;
                 audioRef.current.play().catch(console.error);
               }
             }, 100);
