@@ -13,18 +13,27 @@ import { KineticMarquee } from "@/components/ui/kinetic-marquee";
 import { SpotifyWelcome } from "@/components/spotify-welcome";
 
 export function HomeContent() {
-  const [showWelcome, setShowWelcome] = useState(false);
+  const [showWelcome, setShowWelcome] = useState(true);
 
   useEffect(() => {
-    // Check if user has visited before
-    const hasVisited = localStorage.getItem("gse-visited");
-    if (!hasVisited) {
-      setShowWelcome(true);
-    }
+    // Always show welcome screen on page load/refresh
+    setShowWelcome(true);
+    
+    // Reset on page visibility change (handles tab switching)
+    const handleVisibilityChange = () => {
+      if (!document.hidden) {
+        setShowWelcome(true);
+      }
+    };
+    
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
   }, []);
 
   const handleStart = () => {
-    localStorage.setItem("gse-visited", "true");
     setShowWelcome(false);
   };
 
@@ -37,7 +46,11 @@ export function HomeContent() {
 
   return (
     <>
-      {showWelcome && <SpotifyWelcome onStart={handleStart} />}
+      {showWelcome && (
+        <SpotifyWelcome 
+          onStart={handleStart} 
+        />
+      )}
       
       {/* Floating Navigation */}
       <FloatingNav navItems={navItems} />

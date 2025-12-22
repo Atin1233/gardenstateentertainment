@@ -21,7 +21,7 @@ export function SpotifyWelcome({ onStart }: SpotifyWelcomeProps) {
   return (
     <div
       className={cn(
-        "fixed inset-0 z-[10000] flex items-center justify-center overflow-hidden",
+        "fixed inset-0 z-[99999] flex items-center justify-center overflow-hidden",
         "bg-[#0a0a0a]"
       )}
       style={{
@@ -32,6 +32,13 @@ export function SpotifyWelcome({ onStart }: SpotifyWelcomeProps) {
         WebkitTransform: isAnimating ? "scale(1.5)" : "scale(1)",
         WebkitFilter: isAnimating ? "blur(40px)" : "blur(0px)",
         willChange: "transform, opacity, filter",
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        width: "100vw",
+        height: "100vh",
       }}
     >
       {/* Brand color accent overlays */}
