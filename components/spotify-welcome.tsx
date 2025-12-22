@@ -1,17 +1,17 @@
 "use client";
 
 // Spotify welcome screen with audio playback
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 interface SpotifyWelcomeProps {
   onStart: () => void;
+  onPlayAudio?: () => void;
 }
 
-export function SpotifyWelcome({ onStart }: SpotifyWelcomeProps) {
+export function SpotifyWelcome({ onStart, onPlayAudio }: SpotifyWelcomeProps) {
   const [isAnimating, setIsAnimating] = useState(false);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const handleStart = (e?: React.MouseEvent | React.TouchEvent) => {
     if (e) {
@@ -21,45 +21,9 @@ export function SpotifyWelcome({ onStart }: SpotifyWelcomeProps) {
     
     if (isAnimating) return; // Prevent multiple triggers
     
-    // Play audio when user hits unpause
-    if (audioRef.current) {
-      console.log('Attempting to play audio...');
-      console.log('Audio src:', audioRef.current.src);
-      console.log('Audio readyState:', audioRef.current.readyState);
-      
-      // Set volume and loop
-      audioRef.current.volume = 0.7;
-      audioRef.current.loop = true;
-      
-      // Try to play
-      const playPromise = audioRef.current.play();
-      
-      if (playPromise !== undefined) {
-        playPromise
-          .then(() => {
-            console.log('Audio playing successfully');
-          })
-          .catch((error) => {
-            console.error("Audio play failed:", error);
-            console.error("Error details:", {
-              name: error.name,
-              message: error.message
-            });
-            // Try again after a short delay
-            setTimeout(() => {
-              if (audioRef.current) {
-                console.log('Retrying audio play...');
-                audioRef.current.play().catch((retryError) => {
-                  console.error("Retry failed:", retryError);
-                });
-              }
-            }, 100);
-          });
-      } else {
-        console.warn('Play promise is undefined');
-      }
-    } else {
-      console.error('Audio ref is null');
+    // Play audio when user hits unpause (audio element is in parent component)
+    if (onPlayAudio) {
+      onPlayAudio();
     }
     
     // Use requestAnimationFrame to ensure state update triggers animation
@@ -89,29 +53,6 @@ export function SpotifyWelcome({ onStart }: SpotifyWelcomeProps) {
     }
   };
 
-  // Initialize audio - using HTML audio element approach
-  useEffect(() => {
-    if (audioRef.current) {
-      // Add error listener to debug
-      audioRef.current.addEventListener('error', (e) => {
-        console.error('Audio error:', e);
-        console.error('Audio error details:', {
-          error: audioRef.current?.error,
-          networkState: audioRef.current?.networkState,
-          readyState: audioRef.current?.readyState,
-          src: audioRef.current?.src
-        });
-      });
-      
-      audioRef.current.addEventListener('loadeddata', () => {
-        console.log('Audio loaded successfully');
-      });
-      
-      audioRef.current.addEventListener('canplay', () => {
-        console.log('Audio can play');
-      });
-    }
-  }, []);
 
   return (
     <div
@@ -421,15 +362,6 @@ export function SpotifyWelcome({ onStart }: SpotifyWelcomeProps) {
           </div>
         </div>
       </div>
-      
-      {/* Hidden audio element */}
-      <audio
-        ref={audioRef}
-        src="/massive_song.mp3"
-        preload="auto"
-        loop
-        style={{ display: 'none' }}
-      />
     </div>
   );
 }
