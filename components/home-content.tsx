@@ -20,17 +20,53 @@ export function HomeContent() {
     // Always show welcome screen on page load/refresh
     setShowWelcome(true);
     
-    // Reset on page visibility change (handles tab switching)
+    // Handle visibility change - pause audio when user leaves, show welcome when returning
     const handleVisibilityChange = () => {
-      if (!document.hidden) {
+      if (document.hidden) {
+        // Pause audio when user leaves/switches apps
+        if (audioRef.current && !audioRef.current.paused) {
+          audioRef.current.pause();
+          console.log('Audio paused - page hidden');
+        }
+      } else {
+        // Show welcome screen when user returns
         setShowWelcome(true);
       }
     };
     
+    // Pause audio when page is about to unload
+    const handleBeforeUnload = () => {
+      if (audioRef.current && !audioRef.current.paused) {
+        audioRef.current.pause();
+      }
+    };
+    
+    // Pause audio when page is hidden (mobile app switching)
+    const handlePageHide = () => {
+      if (audioRef.current && !audioRef.current.paused) {
+        audioRef.current.pause();
+        console.log('Audio paused - page hidden');
+      }
+    };
+    
+    // Pause audio when window loses focus (mobile app switching)
+    const handleBlur = () => {
+      if (audioRef.current && !audioRef.current.paused) {
+        audioRef.current.pause();
+        console.log('Audio paused - window blurred');
+      }
+    };
+    
     document.addEventListener('visibilitychange', handleVisibilityChange);
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    window.addEventListener('pagehide', handlePageHide);
+    window.addEventListener('blur', handleBlur);
     
     return () => {
       document.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+      window.removeEventListener('pagehide', handlePageHide);
+      window.removeEventListener('blur', handleBlur);
     };
   }, []);
 
