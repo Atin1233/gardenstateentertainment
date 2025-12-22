@@ -22,17 +22,28 @@ export function SpotifyWelcome({ onStart }: SpotifyWelcomeProps) {
     
     // Play audio when user hits unpause
     if (audioRef.current) {
-      audioRef.current.play().catch((error) => {
-        console.log("Audio play failed:", error);
-        // Retry on user interaction if needed
-        const retryPlay = () => {
-          if (audioRef.current) {
-            audioRef.current.play().catch(console.error);
-          }
-        };
-        document.addEventListener('touchstart', retryPlay, { once: true });
-        document.addEventListener('click', retryPlay, { once: true });
-      });
+      // Set volume and loop
+      audioRef.current.volume = 0.7;
+      audioRef.current.loop = true;
+      
+      // Try to play
+      const playPromise = audioRef.current.play();
+      
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            console.log('Audio playing successfully');
+          })
+          .catch((error) => {
+            console.error("Audio play failed:", error);
+            // Try again after a short delay
+            setTimeout(() => {
+              if (audioRef.current) {
+                audioRef.current.play().catch(console.error);
+              }
+            }, 100);
+          });
+      }
     }
     
     // Use requestAnimationFrame to ensure state update triggers animation
@@ -62,21 +73,10 @@ export function SpotifyWelcome({ onStart }: SpotifyWelcomeProps) {
     }
   };
 
-  // Initialize audio
+  // Initialize audio - using HTML audio element approach
   useEffect(() => {
-    // Create audio element
-    const audio = new Audio('/massive_song.mp3');
-    audio.loop = true;
-    audio.volume = 0.7; // Set volume to 70%
-    audioRef.current = audio;
-
-    return () => {
-      // Cleanup on unmount
-      if (audioRef.current) {
-        audioRef.current.pause();
-        audioRef.current = null;
-      }
-    };
+    // Audio will be handled by the HTML element in the JSX
+    // This effect just ensures the ref is ready
   }, []);
 
   return (
@@ -387,6 +387,15 @@ export function SpotifyWelcome({ onStart }: SpotifyWelcomeProps) {
           </div>
         </div>
       </div>
+      
+      {/* Hidden audio element */}
+      <audio
+        ref={audioRef}
+        src="/massive_song.mp3"
+        preload="auto"
+        loop
+        style={{ display: 'none' }}
+      />
     </div>
   );
 }
