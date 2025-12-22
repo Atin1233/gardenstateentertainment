@@ -19,10 +19,15 @@ export function SpotifyWelcome({ onStart }: SpotifyWelcomeProps) {
     
     if (isAnimating) return; // Prevent multiple triggers
     
-    setIsAnimating(true);
-    setTimeout(() => {
-      onStart();
-    }, 1200);
+    // Use requestAnimationFrame to ensure state update triggers animation
+    requestAnimationFrame(() => {
+      setIsAnimating(true);
+      
+      // Call onStart after animation completes
+      setTimeout(() => {
+        onStart();
+      }, 1200);
+    });
   };
   
   // Handle touch events separately to ensure they work
@@ -45,17 +50,18 @@ export function SpotifyWelcome({ onStart }: SpotifyWelcomeProps) {
     <div
       className={cn(
         "fixed inset-0 z-[99999] flex items-center justify-center overflow-hidden",
-        "bg-[#0a0a0a]"
+        "bg-[#0a0a0a]",
+        isAnimating && "spotify-exit-animation"
       )}
       style={{
         transform: isAnimating ? "scale(1.5)" : "scale(1)",
         opacity: isAnimating ? 0 : 1,
         filter: isAnimating ? "blur(40px)" : "blur(0px)",
-        transition: isAnimating ? "all 1.2s cubic-bezier(0.76, 0, 0.24, 1)" : "none",
+        transition: "transform 1.2s cubic-bezier(0.76, 0, 0.24, 1), opacity 1.2s cubic-bezier(0.76, 0, 0.24, 1), filter 1.2s cubic-bezier(0.76, 0, 0.24, 1)",
         WebkitTransform: isAnimating ? "scale(1.5)" : "scale(1)",
         WebkitFilter: isAnimating ? "blur(40px)" : "blur(0px)",
-        WebkitTransition: isAnimating ? "all 1.2s cubic-bezier(0.76, 0, 0.24, 1)" : "none",
-        willChange: isAnimating ? "transform, opacity, filter" : "auto",
+        WebkitTransition: "transform 1.2s cubic-bezier(0.76, 0, 0.24, 1), opacity 1.2s cubic-bezier(0.76, 0, 0.24, 1), filter 1.2s cubic-bezier(0.76, 0, 0.24, 1)",
+        willChange: "transform, opacity, filter",
         position: "fixed",
         top: 0,
         left: 0,

@@ -731,6 +731,46 @@ html.lenis body {
   }
 }
 
+/* Spotify welcome exit animation - works on all devices */
+.spotify-exit-animation {
+  animation: spotifyExit 1.2s cubic-bezier(0.76, 0, 0.24, 1) forwards !important;
+  -webkit-animation: spotifyExit 1.2s cubic-bezier(0.76, 0, 0.24, 1) forwards !important;
+}
+
+@-webkit-keyframes spotifyExit {
+  0% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    opacity: 1;
+    -webkit-filter: blur(0px);
+    filter: blur(0px);
+  }
+  100% {
+    -webkit-transform: scale(1.5);
+    transform: scale(1.5);
+    opacity: 0;
+    -webkit-filter: blur(40px);
+    filter: blur(40px);
+  }
+}
+
+@keyframes spotifyExit {
+  0% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    opacity: 1;
+    -webkit-filter: blur(0px);
+    filter: blur(0px);
+  }
+  100% {
+    -webkit-transform: scale(1.5);
+    transform: scale(1.5);
+    opacity: 0;
+    -webkit-filter: blur(40px);
+    filter: blur(40px);
+  }
+}
+
 /* ============================================
    Video Background - Hide Controls
    ============================================ */
