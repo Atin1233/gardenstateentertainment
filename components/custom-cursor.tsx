@@ -90,7 +90,7 @@ export function CustomCursor() {
   return (
     <div
       ref={cursorRef}
-      className="fixed top-0 left-0 pointer-events-none z-[99999] mix-blend-difference"
+      className="fixed top-0 left-0 pointer-events-none z-[999999] mix-blend-difference"
       style={{
         opacity: isVisible ? 1 : 0,
         willChange: 'transform',
