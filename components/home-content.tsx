@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { FloatingNav } from "@/components/ui/floating-navbar";
 import { HeroSection } from "@/components/sections/hero-section";
 import { ServicesSection } from "@/components/sections/services-section";
@@ -14,6 +14,7 @@ import { SpotifyWelcome } from "@/components/spotify-welcome";
 
 export function HomeContent() {
   const [showWelcome, setShowWelcome] = useState(true);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     // Always show welcome screen on page load/refresh
@@ -37,6 +38,31 @@ export function HomeContent() {
     setShowWelcome(false);
   };
 
+  // Function to start audio playback (called from SpotifyWelcome)
+  const startAudio = () => {
+    if (audioRef.current) {
+      audioRef.current.volume = 0.7;
+      audioRef.current.loop = true;
+      
+      const playPromise = audioRef.current.play();
+      
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            console.log('Audio playing successfully');
+          })
+          .catch((error) => {
+            console.error("Audio play failed:", error);
+            setTimeout(() => {
+              if (audioRef.current) {
+                audioRef.current.play().catch(console.error);
+              }
+            }, 100);
+          });
+      }
+    }
+  };
+
   const navItems = [
     { name: "DJs", link: "#lineup" },
     { name: "Services", link: "#services" },
@@ -48,9 +74,19 @@ export function HomeContent() {
     <>
       {showWelcome && (
         <SpotifyWelcome 
-          onStart={handleStart} 
+          onStart={handleStart}
+          onPlayAudio={startAudio}
         />
       )}
+      
+      {/* Persistent audio element - stays in DOM even after welcome screen closes */}
+      <audio
+        ref={audioRef}
+        src="/massive_song.mp3"
+        preload="auto"
+        loop
+        style={{ display: 'none' }}
+      />
       
       {/* Floating Navigation */}
       <FloatingNav navItems={navItems} />
